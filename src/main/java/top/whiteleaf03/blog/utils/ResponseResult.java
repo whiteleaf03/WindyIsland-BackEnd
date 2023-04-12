@@ -79,6 +79,13 @@ public class ResponseResult {
     /**
      * 访问错误
      */
+    public static ResponseResult error() {
+        return new ResponseResult(5, "ERROR");
+    }
+
+    /**
+     * 访问错误
+     */
     public static ResponseResult error(String msg) {
         return new ResponseResult(5, msg);
     }
