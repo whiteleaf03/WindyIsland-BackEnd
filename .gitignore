@@ -40,3 +40,4 @@ build/
 application.yml
 application.properties
 *.log
+config.yml
