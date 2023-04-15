@@ -2,9 +2,9 @@ package top.whiteleaf03.blog.utils;
 
 import cn.hutool.core.io.file.FileWriter;
 import cn.hutool.json.JSONUtil;
-import lombok.extern.slf4j.Slf4j;
 import top.whiteleaf03.blog.modal.vo.ArticleDetailVo;
 import top.whiteleaf03.blog.modal.vo.ArticleListVo;
+import top.whiteleaf03.blog.modal.vo.ClassificationVo;
 
 import java.util.List;
 
@@ -23,9 +23,15 @@ public class ArticleJsonUtil {
         articleDirectoryWriter.write(JSONUtil.toJsonPrettyStr(articleListVos));
     }
 
-    public static void writeClassifications(String articlePath, String[] classifications) {
+    /**
+     * 写入类别
+     *
+     * @param articlePath 文章存储路径
+     * @param classificationVos 类别及其数量
+     */
+    public static void writeClassifications(String articlePath, List<ClassificationVo> classificationVos) {
         FileWriter classificationsWriter = new FileWriter(articlePath + "classifications.json");
-        classificationsWriter.write(JSONUtil.toJsonPrettyStr(classifications));
+        classificationsWriter.write(JSONUtil.toJsonPrettyStr(classificationVos));
     }
 
     /**

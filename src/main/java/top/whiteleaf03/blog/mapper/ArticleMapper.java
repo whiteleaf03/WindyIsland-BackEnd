@@ -5,6 +5,7 @@ import top.whiteleaf03.blog.modal.dto.ArticleIdDto;
 import top.whiteleaf03.blog.modal.dto.InsertArticleDto;
 import top.whiteleaf03.blog.modal.vo.ArticleDetailVo;
 import top.whiteleaf03.blog.modal.vo.ArticleListVo;
+import top.whiteleaf03.blog.modal.vo.ClassificationVo;
 
 import java.util.List;
 
@@ -43,9 +44,9 @@ public interface ArticleMapper {
     ArticleDetailVo selectAuthorAndTitleAndDescribeAndClassificationAndTagsAndCoverAndContentAndFilePathAndUpdateTimeById(ArticleIdDto articleIdDto);
 
     /**
-     * 获取所有分类
+     * 查询当前文章已有类别及其数量
      *
-     * @return 返回分类
+     * @return 返回类别及其数量
      */
-    String[] selectClassificationDistinct();
+    List<ClassificationVo> selectClassificationAndTotal();
 }

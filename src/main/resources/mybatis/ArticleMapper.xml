@@ -29,8 +29,9 @@
           and isDelete = 0;
     </select>
 
-    <select id="selectClassificationDistinct" resultType="java.lang.String">
-        select distinct `classification`
-        from blog.article;
+    <select id="selectClassificationAndTotal" resultType="top.whiteleaf03.blog.modal.vo.ClassificationVo">
+        select classification, COUNT(classification) as total
+        from blog.article
+        group by classification;
     </select>
 </mapper>

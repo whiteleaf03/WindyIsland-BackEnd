@@ -11,6 +11,7 @@ import top.whiteleaf03.blog.mapper.ArticleMapper;
 import top.whiteleaf03.blog.modal.dto.ArticleIdDto;
 import top.whiteleaf03.blog.modal.vo.ArticleDetailVo;
 import top.whiteleaf03.blog.modal.vo.ArticleListVo;
+import top.whiteleaf03.blog.modal.vo.ClassificationVo;
 import top.whiteleaf03.blog.utils.ArticleJsonUtil;
 
 import java.util.List;
@@ -51,10 +52,10 @@ public class SystemServiceImpl implements ApplicationRunner {
         }
         //类别写入
         log.info("类别写入...");
-        String[] classifications;
+        List<ClassificationVo> classificationVos;
         try {
-            classifications = articleMapper.selectClassificationDistinct();
-            ArticleJsonUtil.writeClassifications(globalConfig.getArticlePath(), classifications);
+             classificationVos = articleMapper.selectClassificationAndTotal();
+            ArticleJsonUtil.writeClassifications(globalConfig.getArticlePath(), classificationVos);
         } catch (Exception e) {
             log.error("类别写入失败!");
             e.printStackTrace();
