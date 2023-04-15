@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.whiteleaf03.blog.mapper.EssayMapper">
+    <insert id="insert">
+        insert into blog.essay (title, `describe`, cover, content, createTime, updateTime)
+            VALUE (#{title}, #{describe}, #{cover}, #{content}, #{createTime}, #{updateTime});
+    </insert>
+
+    <update id="deleteById">
+        update blog.essay
+        set isDelete = 1
+        where id = #{id};
+    </update>
+
+    <select id="selectTitleAndDescribeAndCoverAndUpdateTime"
+            resultType="top.whiteleaf03.blog.modal.vo.EssayListVo">
+        select id, title, `describe`, cover, updateTime
+        from blog.essay
+        where isDelete = 0;
+    </select>
+
+    <select id="selectTitleAndDescribeAndCoverAndContentAndUpdateTime"
+            resultType="top.whiteleaf03.blog.modal.vo.EssayDetailVo">
+        select title, `describe`, cover, content, updateTime
+        from blog.essay
+        where isDelete = 0;
+    </select>
+</mapper>

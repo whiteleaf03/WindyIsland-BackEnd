@@ -8,11 +8,11 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Service;
 import top.whiteleaf03.blog.config.GlobalConfig;
 import top.whiteleaf03.blog.mapper.ArticleMapper;
+import top.whiteleaf03.blog.mapper.EssayMapper;
 import top.whiteleaf03.blog.modal.dto.ArticleIdDto;
-import top.whiteleaf03.blog.modal.vo.ArticleDetailVo;
-import top.whiteleaf03.blog.modal.vo.ArticleListVo;
-import top.whiteleaf03.blog.modal.vo.ClassificationVo;
+import top.whiteleaf03.blog.modal.vo.*;
 import top.whiteleaf03.blog.utils.ArticleJsonUtil;
+import top.whiteleaf03.blog.utils.EssayJsonUtil;
 
 import java.util.List;
 
@@ -23,11 +23,13 @@ import java.util.List;
 @Service
 public class SystemServiceImpl implements ApplicationRunner {
     private final ArticleMapper articleMapper;
+    private final EssayMapper essayMapper;
     private final GlobalConfig globalConfig;
 
     @Autowired
-    public SystemServiceImpl(ArticleMapper articleMapper, GlobalConfig globalConfig) {
+    public SystemServiceImpl(ArticleMapper articleMapper, EssayMapper essayMapper, GlobalConfig globalConfig) {
         this.articleMapper = articleMapper;
+        this.essayMapper = essayMapper;
         this.globalConfig = globalConfig;
     }
 
@@ -35,6 +37,7 @@ public class SystemServiceImpl implements ApplicationRunner {
     public void run(ApplicationArguments args) {
         log.info("系统初始化中...");
         this.generateArticleStaticFileAndDirectory();
+        this.generateEssayStaticFileAndDirectory();
         log.info("系统初始化完毕!");
     }
 
@@ -74,5 +77,29 @@ public class SystemServiceImpl implements ApplicationRunner {
             }
         }
         log.info("生成完毕!共加载了{}篇文章", articleListVos.size());
+    }
+
+    public void generateEssayStaticFileAndDirectory() {
+        //目录写入
+        log.info("随笔目录写入...");
+        List<EssayListVo> essayListVos;
+        try {
+            essayListVos = essayMapper.selectTitleAndDescribeAndCoverAndUpdateTime();
+            EssayJsonUtil.writeDirectory(globalConfig.getEssayPath(), essayListVos);
+        } catch (Exception e) {
+            log.error("随笔目录写入失败!");
+            e.printStackTrace();
+            return;
+        }
+        //随笔写入
+        for (EssayListVo essayListVo : essayListVos) {
+            try {
+                EssayJsonUtil.writeEssay(globalConfig.getEssayPath(), essayMapper.selectTitleAndDescribeAndCoverAndContentAndUpdateTime(essayListVo.getId()));
+            } catch (Exception e) {
+                log.info("随笔[{}]写入失败!", essayListVo.getTitle() + essayListVo.getUpdateTime() + ".json");
+                e.printStackTrace();
+            }
+        }
+        log.info("随笔生成完毕!共加载了{}篇文章", essayListVos.size());
     }
 }
