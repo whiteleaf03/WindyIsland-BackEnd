@@ -8,8 +8,8 @@
     </insert>
 
     <delete id="deleteById">
-        delete
-        from blog.article
+        update blog.article
+        set isDelete = 1
         where id = #{id};
     </delete>
 
@@ -32,6 +32,7 @@
     <select id="selectClassificationAndTotal" resultType="top.whiteleaf03.blog.modal.vo.ClassificationVo">
         select classification, COUNT(classification) as total
         from blog.article
+        where isDelete = 0
         group by classification;
     </select>
 </mapper>
