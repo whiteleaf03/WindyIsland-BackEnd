@@ -19,4 +19,7 @@ public class GlobalConfig {
 
     @Value("${essay.path}")
     private String essayPath;
+
+    @Value("${picture.path}")
+    private String picturePath;
 }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.whiteleaf03.blog.mapper.PictureMapper">
+
+    <insert id="insert">
+        insert into blog.picture (`name`, updateTime)
+            VALUE (#{name}, #{updateTime});
+    </insert>
+
+    <update id="deleteById">
+        update blog.picture
+        set isDelete = 1
+        where id = #{id};
+    </update>
+
+
+    <select id="selectIdAndNameAndUpdateTime" resultType="top.whiteleaf03.blog.modal.vo.PictureDetailVo">
+        select id, name, updateTime
+        from blog.picture
+        where isDelete = 0;
+    </select>
+
+    <select id="selectNameAndUpdateTimeById" resultType="top.whiteleaf03.blog.modal.vo.PictureListVo">
+        select name, updateTime
+        from blog.picture
+        where isDelete = 0
+          and id = #{id};
+    </select>
+</mapper>
