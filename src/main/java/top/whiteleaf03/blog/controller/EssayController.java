@@ -27,7 +27,7 @@ public class EssayController {
      * @return 返回结果
      */
     @PostMapping("")
-    ResponseResult insert(InsertEssayDto insertEssayDto) {
+    ResponseResult insert(@RequestBody InsertEssayDto insertEssayDto) {
         return essayService.insert(insertEssayDto);
     }
 
@@ -38,7 +38,7 @@ public class EssayController {
      * @return 返回结果
      */
     @DeleteMapping("")
-    ResponseResult deleteById(EssayIdDto essayIdDto) {
+    ResponseResult deleteById(@RequestBody EssayIdDto essayIdDto) {
         return essayService.deleteById(essayIdDto);
     }
 
@@ -47,7 +47,7 @@ public class EssayController {
      *
      * @return 返回结果
      */
-    @GetMapping("/list")
+    @GetMapping("list")
     ResponseResult selectTitleAndDescribeAndCoverAndUpdateTime() {
         return essayService.selectTitleAndDescribeAndCoverAndUpdateTime();
     }
