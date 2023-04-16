@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.whiteleaf03.blog.mapper.MessageMapper">
+    <insert id="insert">
+        insert into blog.message (nickname, email, content, updateTime, `status`)
+            VALUE (#{nickname}, #{email}, #{content}, #{updateTime}, #{status});
+    </insert>
+
+    <update id="deleteById">
+        update blog.message
+        set isDelete = 1
+        where id = #{id};
+    </update>
+
+    <update id="updateSetStatusById">
+        update blog.message
+        set status = #{status}
+        where id = #{id};
+    </update>
+
+    <select id="selectNicknameAndUpdateTimeAndContent" resultType="top.whiteleaf03.blog.modal.vo.MessageVo">
+        select nickname, content, updateTime
+        from blog.message
+        where status = 1 and isDelete = 0
+        order by id desc;
+    </select>
+</mapper>
