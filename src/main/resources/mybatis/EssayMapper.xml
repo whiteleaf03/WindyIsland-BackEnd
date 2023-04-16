@@ -20,7 +20,7 @@
         where isDelete = 0;
     </select>
 
-    <select id="selectTitleAndDescribeAndCoverAndContentAndUpdateTime"
+    <select id="selectTitleAndDescribeAndCoverAndContentAndUpdateTimeById"
             resultType="top.whiteleaf03.blog.modal.vo.EssayDetailVo">
         select title, `describe`, cover, content, updateTime
         from blog.essay

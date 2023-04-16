@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import top.whiteleaf03.blog.config.GlobalConfig;
 import top.whiteleaf03.blog.mapper.ArticleMapper;
 import top.whiteleaf03.blog.mapper.EssayMapper;
-import top.whiteleaf03.blog.modal.dto.ArticleIdDto;
 import top.whiteleaf03.blog.modal.vo.*;
 import top.whiteleaf03.blog.utils.ArticleJsonUtil;
 import top.whiteleaf03.blog.utils.EssayJsonUtil;
@@ -94,7 +93,7 @@ public class SystemServiceImpl implements ApplicationRunner {
         //随笔写入
         for (EssayListVo essayListVo : essayListVos) {
             try {
-                EssayJsonUtil.writeEssay(globalConfig.getEssayPath(), essayMapper.selectTitleAndDescribeAndCoverAndContentAndUpdateTime(essayListVo.getId()));
+                EssayJsonUtil.writeEssay(globalConfig.getEssayPath(), essayMapper.selectTitleAndDescribeAndCoverAndContentAndUpdateTimeById(essayListVo.getId()));
             } catch (Exception e) {
                 log.info("随笔[{}]写入失败!", essayListVo.getTitle() + essayListVo.getUpdateTime() + ".json");
                 e.printStackTrace();

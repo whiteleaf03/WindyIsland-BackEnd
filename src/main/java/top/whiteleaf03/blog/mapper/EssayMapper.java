@@ -1,11 +1,8 @@
 package top.whiteleaf03.blog.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
-import top.whiteleaf03.blog.modal.dto.ArticleIdDto;
 import top.whiteleaf03.blog.modal.dto.EssayIdDto;
 import top.whiteleaf03.blog.modal.dto.InsertEssayDto;
-import top.whiteleaf03.blog.modal.vo.ArticleDetailVo;
-import top.whiteleaf03.blog.modal.vo.ArticleListVo;
 import top.whiteleaf03.blog.modal.vo.EssayDetailVo;
 import top.whiteleaf03.blog.modal.vo.EssayListVo;
 
@@ -43,7 +40,7 @@ public interface EssayMapper {
      * @param essayIdDto 包含随笔id
      * @return 返回结果
      */
-    EssayDetailVo selectTitleAndDescribeAndCoverAndContentAndUpdateTime(EssayIdDto essayIdDto);
+    EssayDetailVo selectTitleAndDescribeAndCoverAndContentAndUpdateTimeById(EssayIdDto essayIdDto);
 
     /**
      * 前台根据id获取随笔内容
@@ -51,5 +48,5 @@ public interface EssayMapper {
      * @param id 随笔id
      * @return 返回结果
      */
-    EssayDetailVo selectTitleAndDescribeAndCoverAndContentAndUpdateTime(Long id);
+    EssayDetailVo selectTitleAndDescribeAndCoverAndContentAndUpdateTimeById(Long id);
 }
