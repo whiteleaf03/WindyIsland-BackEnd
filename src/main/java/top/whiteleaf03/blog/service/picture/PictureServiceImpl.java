@@ -110,7 +110,7 @@ public class PictureServiceImpl implements PictureService {
         Long updateTime = System.currentTimeMillis();
         String name = null;
         if (originalFilename != null) {
-            name = originalFilename.split("\\.")[0] + "_" + updateTime + originalFilename.split("\\.")[1];
+            name = originalFilename.split("\\.")[0] + "_" + updateTime + "." + originalFilename.split("\\.")[1];
         }
         try {
             //保存文件

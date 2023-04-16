@@ -61,7 +61,7 @@ public class PictureController {
      * @return 返回结果
      */
     @PostMapping("upload")
-    public ResponseResult uploadPicture(@RequestParam MultipartFile multipartFile) {
+    public ResponseResult uploadPicture(@RequestParam("file") MultipartFile multipartFile) {
         return pictureService.upload(multipartFile);
     }
 }
