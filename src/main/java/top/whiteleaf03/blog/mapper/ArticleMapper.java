@@ -44,6 +44,14 @@ public interface ArticleMapper {
     ArticleDetailVo selectAuthorAndTitleAndDescribeAndClassificationAndTagsAndCoverAndContentAndFilePathAndUpdateTimeById(ArticleIdDto articleIdDto);
 
     /**
+     * 前台根据id获取文章内容
+     *
+     * @param id 文章id
+     * @return 返回结果
+     */
+    ArticleDetailVo selectAuthorAndTitleAndDescribeAndClassificationAndTagsAndCoverAndContentAndFilePathAndUpdateTimeById(Long id);
+
+    /**
      * 查询当前文章已有类别及其数量
      *
      * @return 返回类别及其数量

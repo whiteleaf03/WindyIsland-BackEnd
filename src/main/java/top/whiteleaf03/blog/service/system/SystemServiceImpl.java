@@ -70,7 +70,7 @@ public class SystemServiceImpl implements ApplicationRunner {
         FileWriter fileWriter;
         for (ArticleListVo articleListVo : articleListVos) {
             try {
-                ArticleJsonUtil.writeArticle(globalConfig.getArticlePath(), articleMapper.selectAuthorAndTitleAndDescribeAndClassificationAndTagsAndCoverAndContentAndFilePathAndUpdateTimeById(new ArticleIdDto(articleListVo.getId())));
+                ArticleJsonUtil.writeArticle(globalConfig.getArticlePath(), articleMapper.selectAuthorAndTitleAndDescribeAndClassificationAndTagsAndCoverAndContentAndFilePathAndUpdateTimeById(articleListVo.getId()));
             } catch (Exception e) {
                 log.info("文章[{}]写入失败!", articleListVo.getTitle() + articleListVo.getUpdateTime() + ".json");
                 e.printStackTrace();
