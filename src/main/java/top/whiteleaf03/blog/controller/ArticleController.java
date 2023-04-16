@@ -1,9 +1,7 @@
 package top.whiteleaf03.blog.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import top.whiteleaf03.blog.modal.dto.ArticleIdDto;
 import top.whiteleaf03.blog.modal.dto.InsertArticleDto;
 import top.whiteleaf03.blog.service.article.ArticleService;
@@ -41,7 +39,8 @@ public class ArticleController {
      * @param articleIdDto 包含文章id
      * @return 返回结果
      */
-    ResponseResult deleteById(ArticleIdDto articleIdDto) {
+    @DeleteMapping("")
+    ResponseResult deleteById(@RequestBody ArticleIdDto articleIdDto) {
         return articleService.deleteById(articleIdDto);
     }
 
@@ -50,6 +49,7 @@ public class ArticleController {
      *
      * @return 返回结果
      */
+    @GetMapping("list")
     ResponseResult selectIdAndAuthorAndTitleAndDescribeAndBorderColorAndCoverAndViewAndCommentAndUpdateTime() {
         return articleService.selectIdAndAuthorAndTitleAndDescribeAndBorderColorAndCoverAndViewAndCommentAndUpdateTime();
     }
@@ -60,6 +60,7 @@ public class ArticleController {
      * @param articleIdDto 包含文章id
      * @return 返回结果
      */
+    @GetMapping("")
     ResponseResult selectAuthorAndTitleAndDescribeAndCoverAndContentAndFilePathAndUpdateTimeById(ArticleIdDto articleIdDto) {
         return articleService.selectAuthorAndTitleAndDescribeAndCoverAndContentAndFilePathAndUpdateTimeById(articleIdDto);
     }
