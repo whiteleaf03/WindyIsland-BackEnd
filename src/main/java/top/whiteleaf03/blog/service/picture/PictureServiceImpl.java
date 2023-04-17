@@ -1,5 +1,6 @@
 package top.whiteleaf03.blog.service.picture;
 
+import cn.hutool.core.io.FileUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,9 +57,18 @@ public class PictureServiceImpl implements PictureService {
     @Override
     public ResponseResult deleteById(PictureIdDto pictureIdDto) {
         try {
+            PictureDetailVo pictureDetailVo = pictureMapper.selectNameById(pictureIdDto);
+            String picturePath = globalConfig.getPicturePath() + pictureDetailVo.getName();
+            FileUtil.del(picturePath);
+        } catch (Exception e) {
+            log.error("删除图片文件失败");
+            e.printStackTrace();
+            return ResponseResult.error();
+        }
+        try {
             pictureMapper.deleteById(pictureIdDto);
         } catch (RuntimeException e) {
-            log.error("删除图片失败");
+            log.error("删除图片数据失败");
             e.printStackTrace();
             return ResponseResult.error();
         }

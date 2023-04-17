@@ -32,4 +32,12 @@ public interface PictureMapper {
      * @return 返回结果
      */
     List<PictureDetailVo> selectIdAndNameAndUpdateTime();
+
+    /**
+     * 根据id获取图片名
+     *
+     * @param pictureIdDto 图片id
+     * @return 返回图片名
+     */
+    PictureDetailVo selectNameById(PictureIdDto pictureIdDto);
 }
