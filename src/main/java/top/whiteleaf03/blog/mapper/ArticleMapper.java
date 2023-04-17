@@ -18,8 +18,9 @@ public interface ArticleMapper {
      * 新增文章
      *
      * @param insertArticleDto 要插入的文章的内容
+     * @return 返回文章id
      */
-    void insertArticle(InsertArticleDto insertArticleDto);
+    Long insertArticle(InsertArticleDto insertArticleDto);
 
     /**
      * 删除文章

@@ -4,12 +4,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.whiteleaf03.blog.mapper.ArticleMapper;
+import top.whiteleaf03.blog.mapper.ArticleTagMapper;
 import top.whiteleaf03.blog.modal.dto.ArticleIdDto;
 import top.whiteleaf03.blog.modal.dto.InsertArticleDto;
+import top.whiteleaf03.blog.modal.entity.ArticleTag;
 import top.whiteleaf03.blog.modal.vo.ArticleDetailVo;
 import top.whiteleaf03.blog.modal.vo.ArticleListVo;
 import top.whiteleaf03.blog.service.system.SystemServiceImpl;
-import top.whiteleaf03.blog.utils.RedisCache;
 import top.whiteleaf03.blog.utils.ResponseResult;
 
 import java.util.List;
@@ -22,13 +23,13 @@ import java.util.List;
 public class ArticleServiceImpl implements ArticleService {
     private final SystemServiceImpl systemServiceImpl;
     private final ArticleMapper articleMapper;
-    private final RedisCache redisCache;
+    private final ArticleTagMapper articleTagMapper;
 
     @Autowired
-    public ArticleServiceImpl(SystemServiceImpl systemServiceImpl, ArticleMapper articleMapper, RedisCache redisCache) {
+    public ArticleServiceImpl(SystemServiceImpl systemServiceImpl, ArticleMapper articleMapper, ArticleTagMapper articleTagMapper) {
         this.systemServiceImpl = systemServiceImpl;
         this.articleMapper = articleMapper;
-        this.redisCache = redisCache;
+        this.articleTagMapper = articleTagMapper;
     }
 
     /**
@@ -39,9 +40,15 @@ public class ArticleServiceImpl implements ArticleService {
      */
     @Override
     public ResponseResult insert(InsertArticleDto insertArticleDto) {
+        Long articleId;
+        List<Long> tagIds;
         try {
+            tagIds = insertArticleDto.getTagIds();
             insertArticleDto.generateArticleInfo();
-            articleMapper.insertArticle(insertArticleDto);
+            articleId = articleMapper.insertArticle(insertArticleDto);
+            for (Long tagId : tagIds) {
+                articleTagMapper.insert(new ArticleTag(articleId, tagId));
+            }
             systemServiceImpl.generateArticleStaticFileAndDirectory();
         } catch (RuntimeException e) {
             log.error("新增文章出错");

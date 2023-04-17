@@ -3,6 +3,8 @@ package top.whiteleaf03.blog.modal.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @author WhiteLeaf03
  */
@@ -38,6 +40,11 @@ public class InsertArticleDto {
      * 文章内容 富文本形式
      */
     private String content;
+
+    /**
+     * 文章标签id
+     */
+    List<Long> tagIds;
 
     /**
      * 创建日期

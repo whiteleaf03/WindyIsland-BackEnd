@@ -14,10 +14,10 @@ public class ArticleTag {
     /**
      * 博客id
      */
-    private String articleId;
+    private Long articleId;
 
     /**
      * 标签id
      */
-    private String tagId;
+    private Long tagId;
 }
