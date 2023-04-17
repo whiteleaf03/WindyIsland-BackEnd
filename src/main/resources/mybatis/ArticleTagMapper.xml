@@ -11,4 +11,10 @@
         delete from blog.articletag
         where articleId = #{articleId} and tagId = #{tagId};
     </delete>
+
+    <select id="countArticleTotalByTagId" resultType="java.lang.Integer">
+        select count(*)
+        from blog.articletag
+        where tagId = #{id}
+    </select>
 </mapper>

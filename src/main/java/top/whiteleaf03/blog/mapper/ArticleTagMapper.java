@@ -18,7 +18,15 @@ public interface ArticleTagMapper {
     /**
      * 给博客删除tag
      *
-     * @param InsertArticleTagDto 文章 id和tag id
+     * @param articleTag 文章 id和tag id
      */
-    void deleteByArticleIdAndTagId(InsertArticleTagDto InsertArticleTagDto);
+    void deleteByArticleIdAndTagId(ArticleTag articleTag);
+
+    /**
+     * 根据标签id统计文章数量
+     *
+     * @param tagId 标签id
+     * @return 返回文章数量
+     */
+    Integer countArticleTotalByTagId(Long tagId);
 }

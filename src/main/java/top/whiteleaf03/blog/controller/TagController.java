@@ -34,4 +34,10 @@ public class TagController {
     public ResponseResult selectIdAndName() {
         return tagService.selectName();
     }
+
+
+    @GetMapping("info")
+    public ResponseResult selectTagNameAndArticleTotal() {
+        return tagService.selectTagNameAndArticleTotal();
+    }
 }

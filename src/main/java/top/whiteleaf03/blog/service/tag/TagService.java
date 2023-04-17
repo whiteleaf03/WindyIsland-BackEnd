@@ -39,4 +39,11 @@ public interface TagService {
      * @return 返回结果
      */
     ResponseResult insertArticleTag(ArticleTag articleTag);
+
+    /**
+     * 获取标签名及包含该标签的文章数量
+     *
+     * @return 返回
+     */
+    ResponseResult selectTagNameAndArticleTotal();
 }
