@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.whiteleaf03.blog.mapper.ClassificationMapper">
+    <insert id="insert">
+        insert into blog.classification (name, updateTime)
+            value (#{name}, #{updateTime});
+    </insert>
+
+    <update id="deleteById">
+        update blog.classification
+        set isDelete = 1
+        where id = #{id};
+    </update>
+
+    <select id="selectIdAndName" resultType="top.whiteleaf03.blog.modal.vo.ClassificationListVo">
+        select id, name
+        from blog.classification
+        where isDelete = 0;
+    </select>
+
+    <select id="selectTagNameAndArticleTotal" resultType="top.whiteleaf03.blog.modal.vo.ClassificationListVo">
+
+    </select>
+</mapper>

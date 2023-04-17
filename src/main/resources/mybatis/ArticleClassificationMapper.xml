@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.whiteleaf03.blog.mapper.ArticleClassificationMapper">
+    <insert id="insert">
+        insert into blog.articleclassification (articleId, classificationId)
+            value (#{articleId}, #{classificationId});
+    </insert>
+
+    <update id="update">
+        update blog.articleclassification
+        set classificationId = #{classificationId}
+        where articleId = #{articleId};
+    </update>
+
+    <select id="countArticleTotalByClassificationId" resultType="java.lang.Integer">
+        select count(*)
+        from blog.articleclassification
+        where classificationId = #{id};
+    </select>
+</mapper>
