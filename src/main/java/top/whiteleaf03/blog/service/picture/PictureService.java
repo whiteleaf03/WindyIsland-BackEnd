@@ -33,14 +33,6 @@ public interface PictureService {
     ResponseResult selectIdAndNameAndUpdateTime();
 
     /**
-     * 根据id查询图片信息及图片内容
-     *
-     * @param pictureIdDto 图片id
-     * @return 返回结果
-     */
-    ResponseResult selectNameAndUpdateTimeById(PictureIdDto pictureIdDto);
-
-    /**
      * 上传图片
      *
      * @param multipartFile 图片文件

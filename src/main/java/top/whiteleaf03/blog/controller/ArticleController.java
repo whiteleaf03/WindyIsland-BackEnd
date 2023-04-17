@@ -28,7 +28,7 @@ public class ArticleController {
      * @param insertArticleDto 新文章内容
      * @return 返回结果
      */
-    @RequestMapping("insert")
+    @PostMapping("")
     ResponseResult insertArticle(@RequestBody InsertArticleDto insertArticleDto) {
         return articleService.insert(insertArticleDto);
     }

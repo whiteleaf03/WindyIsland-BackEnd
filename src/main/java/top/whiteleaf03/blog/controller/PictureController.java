@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import top.whiteleaf03.blog.modal.dto.PictureIdDto;
-import top.whiteleaf03.blog.modal.entity.Picture;
 import top.whiteleaf03.blog.service.picture.PictureService;
 import top.whiteleaf03.blog.utils.ResponseResult;
 
@@ -41,18 +40,6 @@ public class PictureController {
     ResponseResult selectIdAndNameAndUpdateTime() {
         return pictureService.selectIdAndNameAndUpdateTime();
     }
-
-    /**
-     * 根据id查询图片信息及图片内容
-     *
-     * @param pictureIdDto 图片id
-     * @return 返回结果
-     */
-    @GetMapping("")
-    ResponseResult selectNameAndUpdateTimeById(PictureIdDto pictureIdDto) {
-        return pictureService.selectNameAndUpdateTimeById(pictureIdDto);
-    }
-
 
     /**
      * 上传图片

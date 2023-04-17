@@ -33,6 +33,7 @@ public class EssayServiceImpl implements EssayService {
     @Override
     public ResponseResult insert(InsertEssayDto insertEssayDto) {
         try {
+            insertEssayDto.generateEssayInfo();
             essayMapper.insert(insertEssayDto);
         } catch (RuntimeException e) {
             log.error("新增随笔失败");

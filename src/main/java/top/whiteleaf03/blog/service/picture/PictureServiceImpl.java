@@ -8,9 +8,11 @@ import top.whiteleaf03.blog.config.GlobalConfig;
 import top.whiteleaf03.blog.mapper.PictureMapper;
 import top.whiteleaf03.blog.modal.dto.PictureIdDto;
 import top.whiteleaf03.blog.modal.entity.Picture;
+import top.whiteleaf03.blog.modal.vo.PictureDetailVo;
 import top.whiteleaf03.blog.utils.ResponseResult;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * @author WhiteLeaf03
@@ -70,32 +72,15 @@ public class PictureServiceImpl implements PictureService {
      */
     @Override
     public ResponseResult selectIdAndNameAndUpdateTime() {
+        List<PictureDetailVo> pictureDetailVoList;
         try {
-            pictureMapper.selectIdAndNameAndUpdateTime();
+            pictureDetailVoList = pictureMapper.selectIdAndNameAndUpdateTime();
         } catch (RuntimeException e) {
             log.error("查询图片详细信息列表失败");
             e.printStackTrace();
             return ResponseResult.error();
         }
-        return ResponseResult.success();
-    }
-
-    /**
-     * 根据id查询图片信息及图片内容
-     *
-     * @param pictureIdDto 图片id
-     * @return 返回结果
-     */
-    @Override
-    public ResponseResult selectNameAndUpdateTimeById(PictureIdDto pictureIdDto) {
-        try {
-            pictureMapper.selectNameAndUpdateTimeById(pictureIdDto);
-        } catch (RuntimeException e) {
-            log.error("根据id查询图片信息及图片内容失败");
-            e.printStackTrace();
-            return ResponseResult.error();
-        }
-        return ResponseResult.success();
+        return ResponseResult.success(pictureDetailVoList);
     }
 
     /**

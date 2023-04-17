@@ -20,11 +20,4 @@
         from blog.picture
         where isDelete = 0;
     </select>
-
-    <select id="selectNameAndUpdateTimeById" resultType="top.whiteleaf03.blog.modal.vo.PictureListVo">
-        select name, updateTime
-        from blog.picture
-        where isDelete = 0
-          and id = #{id};
-    </select>
 </mapper>

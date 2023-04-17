@@ -12,6 +12,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PictureDetailVo {
     /**
+     * 主键
+     */
+    private Long id;
+
+    /**
      * 文件名
      */
     private String name;

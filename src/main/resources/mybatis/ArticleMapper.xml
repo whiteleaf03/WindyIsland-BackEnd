@@ -26,7 +26,8 @@
         select `author`, `title`, `describe`, `classification`, `tags`, `cover`, `content`, `updateTime`
         from blog.article
         where id = #{id}
-          and isDelete = 0;
+          and isDelete = 0
+        limit 1;
     </select>
 
     <select id="selectClassificationAndTotal" resultType="top.whiteleaf03.blog.modal.vo.ClassificationVo">

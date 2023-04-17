@@ -4,7 +4,8 @@ import org.apache.ibatis.annotations.Mapper;
 import top.whiteleaf03.blog.modal.dto.PictureIdDto;
 import top.whiteleaf03.blog.modal.entity.Picture;
 import top.whiteleaf03.blog.modal.vo.PictureDetailVo;
-import top.whiteleaf03.blog.modal.vo.PictureListVo;
+
+import java.util.List;
 
 /**
  * @author WhiteLeaf03
@@ -30,13 +31,5 @@ public interface PictureMapper {
      *
      * @return 返回结果
      */
-    PictureDetailVo selectIdAndNameAndUpdateTime();
-
-    /**
-     * 根据id查询图片信息及图片内容
-     *
-     * @param pictureIdDto 图片id
-     * @return 返回结果
-     */
-    PictureListVo selectNameAndUpdateTimeById(PictureIdDto pictureIdDto);
+    List<PictureDetailVo> selectIdAndNameAndUpdateTime();
 }

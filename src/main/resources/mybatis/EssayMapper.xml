@@ -24,6 +24,8 @@
             resultType="top.whiteleaf03.blog.modal.vo.EssayDetailVo">
         select title, `describe`, cover, content, updateTime
         from blog.essay
-        where isDelete = 0;
+        where isDelete = 0
+          and id = #{id}
+        limit 1;
     </select>
 </mapper>
