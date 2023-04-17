@@ -32,7 +32,7 @@ public class TagController {
 
     @GetMapping("list")
     public ResponseResult selectIdAndName() {
-        return tagService.selectName();
+        return tagService.selectIdAndName();
     }
 
 

@@ -74,7 +74,7 @@ public class TagServiceImpl implements TagService {
      * @return 返回
      */
     @Override
-    public ResponseResult selectName() {
+    public ResponseResult selectIdAndName() {
         List<TagListVo> tagList;
         try {
             tagList = tagMapper.selectIdAndName();

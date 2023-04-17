@@ -30,7 +30,7 @@ public interface TagService {
      *
      * @return 返回
      */
-    ResponseResult selectName();
+    ResponseResult selectIdAndName();
 
     /**
      * 给文章分配标签
