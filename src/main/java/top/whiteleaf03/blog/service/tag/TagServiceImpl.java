@@ -10,7 +10,7 @@ import top.whiteleaf03.blog.modal.dto.InsertTagDto;
 import top.whiteleaf03.blog.modal.dto.TagIdDto;
 import top.whiteleaf03.blog.modal.entity.ArticleTag;
 import top.whiteleaf03.blog.modal.vo.TagListVo;
-import top.whiteleaf03.blog.modal.vo.TagNameAndArticleTotalVo;
+import top.whiteleaf03.blog.modal.vo.TagIdAndNameAndArticleTotalVo;
 import top.whiteleaf03.blog.utils.ResponseResult;
 
 import java.util.ArrayList;
@@ -111,17 +111,17 @@ public class TagServiceImpl implements TagService {
      */
     @Override
     public ResponseResult selectTagNameAndArticleTotal() {
-        List<TagNameAndArticleTotalVo> tagNameAndArticleTotalVoList = new ArrayList<>();
+        List<TagIdAndNameAndArticleTotalVo> tagIdAndNameAndArticleTotalVoList = new ArrayList<>();
         try {
             List<TagListVo> tagListVos = tagMapper.selectIdAndName();
             for (TagListVo tagListVo : tagListVos) {
-                tagNameAndArticleTotalVoList.add(new TagNameAndArticleTotalVo(tagListVo.getName(), articleTagMapper.countArticleTotalByTagId(tagListVo.getId())));
+                tagIdAndNameAndArticleTotalVoList.add(new TagIdAndNameAndArticleTotalVo(tagListVo.getId(), tagListVo.getName(), articleTagMapper.countArticleTotalByTagId(tagListVo.getId())));
             }
         } catch (RuntimeException e) {
             log.error("获取标签名及包含该标签的文章数量");
             e.printStackTrace();
             return ResponseResult.error();
         }
-        return ResponseResult.success(tagNameAndArticleTotalVoList);
+        return ResponseResult.success(tagIdAndNameAndArticleTotalVoList);
     }
 }

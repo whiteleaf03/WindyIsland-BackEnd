@@ -10,7 +10,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TagNameAndArticleTotalVo {
+public class TagIdAndNameAndArticleTotalVo {
+    /**
+     * 标签id
+     */
+    private Long id;
+
     /**
      * 标签名
      */
