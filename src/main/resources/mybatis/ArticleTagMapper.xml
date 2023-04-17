@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.whiteleaf03.blog.mapper.ArticleTagMapper">
+    <insert id="insert">
+        insert into blog.articletag (articleId, tagId)
+            value (#{articleId}, #{tagId});
+    </insert>
+
+    <delete id="deleteByArticleIdAndTagId">
+        delete from blog.articletag
+        where articleId = #{articleId} and tagId = #{tagId};
+    </delete>
+</mapper>
