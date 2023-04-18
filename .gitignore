@@ -40,4 +40,5 @@ build/
 application.yml
 application.properties
 *.log
+*.gz
 config.yml
