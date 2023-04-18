@@ -32,16 +32,6 @@ public class Article {
     private String describe;
 
     /**
-     * 文章所属分类
-     */
-    private String classification;
-
-    /**
-     * 标签 多个标签以空格分割
-     */
-    private String tags;
-
-    /**
      * 封面外边框颜色
      */
     private String borderColor;

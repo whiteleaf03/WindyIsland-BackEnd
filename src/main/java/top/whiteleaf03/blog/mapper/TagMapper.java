@@ -33,4 +33,12 @@ public interface TagMapper {
      * @return 返回标签列表
      */
     List<TagListVo> selectIdAndName();
+
+    /**
+     * 根据id获取标签名
+     *
+     * @param id 标签id
+     * @return 标签名
+     */
+    String selectNameById(Long id);
 }

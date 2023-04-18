@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 /**
  * @author WhiteLeaf03
  */
@@ -39,7 +41,7 @@ public class ArticleListVo {
     /**
      * 标签 多个标签以空格分割
      */
-    private String tags;
+    private List<String> tags;
 
     /**
      * 封面外边框颜色

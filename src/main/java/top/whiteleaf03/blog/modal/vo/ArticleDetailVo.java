@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 /**
  * @author WhiteLeaf03
  */
@@ -32,9 +34,9 @@ public class ArticleDetailVo {
     private String classification;
 
     /**
-     * 标签 多个标签以空格分割
+     * 标签
      */
-    private String tags;
+    private List<String> tags;
 
     /**
      * 文章封面图片路径

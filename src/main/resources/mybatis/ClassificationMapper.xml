@@ -19,7 +19,9 @@
         where isDelete = 0;
     </select>
 
-    <select id="selectTagNameAndArticleTotal" resultType="top.whiteleaf03.blog.modal.vo.ClassificationListVo">
-
+    <select id="selectNameById" resultType="java.lang.String">
+        select name
+        from blog.classification
+        where id = #{id};
     </select>
 </mapper>

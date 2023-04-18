@@ -32,4 +32,12 @@ public interface ClassificationMapper {
      * @return 返回
      */
     List<ClassificationListVo> selectIdAndName();
+
+    /**
+     * 根据id获取分类名
+     *
+     * @param id 分类id
+     * @return 分类名
+     */
+    String selectNameById(Long id);
 }

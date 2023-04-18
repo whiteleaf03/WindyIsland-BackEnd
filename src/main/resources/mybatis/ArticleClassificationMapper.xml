@@ -16,6 +16,18 @@
     <select id="countArticleTotalByClassificationId" resultType="java.lang.Integer">
         select count(*)
         from blog.articleclassification
-        where classificationId = #{id};
+        where classificationId = #{classificationId};
+    </select>
+
+    <select id="selectArticleIdByClassificationId" resultType="java.lang.Long">
+        select articleId
+        from blog.articleclassification
+        where classificationId = #{classificationId};
+    </select>
+
+    <select id="selectClassificationIdByArticleId" resultType="java.lang.Long">
+        select classificationId
+        from blog.articleclassification
+        where articleId = #{articleId};
     </select>
 </mapper>

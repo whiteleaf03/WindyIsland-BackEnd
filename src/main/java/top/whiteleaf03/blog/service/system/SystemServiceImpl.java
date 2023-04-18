@@ -1,18 +1,17 @@
 package top.whiteleaf03.blog.service.system;
 
-import cn.hutool.core.io.file.FileWriter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Service;
 import top.whiteleaf03.blog.config.GlobalConfig;
-import top.whiteleaf03.blog.mapper.ArticleMapper;
-import top.whiteleaf03.blog.mapper.EssayMapper;
+import top.whiteleaf03.blog.mapper.*;
 import top.whiteleaf03.blog.modal.vo.*;
 import top.whiteleaf03.blog.utils.ArticleJsonUtil;
 import top.whiteleaf03.blog.utils.EssayJsonUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,12 +23,20 @@ public class SystemServiceImpl implements ApplicationRunner {
     private final ArticleMapper articleMapper;
     private final EssayMapper essayMapper;
     private final GlobalConfig globalConfig;
+    private final ClassificationMapper classificationMapper;
+    private final ArticleClassificationMapper articleClassificationMapper;
+    private final TagMapper tagMapper;
+    private final ArticleTagMapper articleTagMapper;
 
     @Autowired
-    public SystemServiceImpl(ArticleMapper articleMapper, EssayMapper essayMapper, GlobalConfig globalConfig) {
+    public SystemServiceImpl(ArticleMapper articleMapper, EssayMapper essayMapper, GlobalConfig globalConfig, ClassificationMapper classificationMapper, ArticleClassificationMapper articleClassificationMapper, TagMapper tagMapper, ArticleTagMapper articleTagMapper) {
         this.articleMapper = articleMapper;
         this.essayMapper = essayMapper;
         this.globalConfig = globalConfig;
+        this.classificationMapper = classificationMapper;
+        this.articleClassificationMapper = articleClassificationMapper;
+        this.tagMapper = tagMapper;
+        this.articleTagMapper = articleTagMapper;
     }
 
     @Override
@@ -45,7 +52,12 @@ public class SystemServiceImpl implements ApplicationRunner {
         log.info("目录写入...");
         List<ArticleListVo> articleListVos;
         try {
-            articleListVos = articleMapper.selectIdAndAuthorAndTitleAndDescribeAndClassificationAndTagsAndBorderColorAndCoverAndViewAndCommentAndPathAndUpdateTime();
+            articleListVos = articleMapper.selectIdAndAuthorAndTitleAndDescribeAndBorderColorAndCoverAndViewAndCommentAndPathAndUpdateTime();
+            for (ArticleListVo articleListVo: articleListVos) {
+                Long classificationId = articleClassificationMapper.selectClassificationIdByArticleId(articleListVo.getId());
+                String classification = classificationMapper.selectNameById(classificationId);
+                articleListVo.setClassification(classification);
+            }
             ArticleJsonUtil.writeDirectory(globalConfig.getArticlePath(), articleListVos);
         } catch (Exception e) {
             log.info("文章目录写入失败!");
@@ -54,10 +66,13 @@ public class SystemServiceImpl implements ApplicationRunner {
         }
         //类别写入
         log.info("类别写入...");
-        List<ClassificationVo> classificationVos;
         try {
-             classificationVos = articleMapper.selectClassificationAndTotal();
-            ArticleJsonUtil.writeClassifications(globalConfig.getArticlePath(), classificationVos);
+            List<ClassificationIdAndNameAndArticleTotalVo> classificationIdAndNameAndArticleTotalVos = new ArrayList<>();
+            List<ClassificationListVo> classificationListVos = classificationMapper.selectIdAndName();
+            for (ClassificationListVo classificationListVo : classificationListVos) {
+                classificationIdAndNameAndArticleTotalVos.add(new ClassificationIdAndNameAndArticleTotalVo(classificationListVo.getId(), classificationListVo.getName(), articleClassificationMapper.countArticleTotalByClassificationId(classificationListVo.getId())));
+            }
+            ArticleJsonUtil.writeClassifications(globalConfig.getArticlePath(), classificationIdAndNameAndArticleTotalVos);
         } catch (Exception e) {
             log.error("类别写入失败!");
             e.printStackTrace();
@@ -65,11 +80,19 @@ public class SystemServiceImpl implements ApplicationRunner {
         }
         //文章写入
         log.info("文章写入...");
-        ArticleDetailVo articleDetailVo;
-        FileWriter fileWriter;
         for (ArticleListVo articleListVo : articleListVos) {
             try {
-                ArticleJsonUtil.writeArticle(globalConfig.getArticlePath(), articleMapper.selectAuthorAndTitleAndDescribeAndClassificationAndTagsAndCoverAndContentAndFilePathAndUpdateTimeById(articleListVo.getId()));
+                Long articleId = articleListVo.getId();
+                Long classificationId = articleClassificationMapper.selectClassificationIdByArticleId(articleId);
+                List<Long> tagIds = articleTagMapper.selectTagIdByArticleId(articleId);
+                List<String> tags = new ArrayList<>();
+                for (Long tagId : tagIds) {
+                    tags.add(tagMapper.selectNameById(tagId));
+                }
+                ArticleDetailVo articleDetailVo = articleMapper.selectAuthorAndTitleAndDescribeAndClassificationAndTagsAndCoverAndContentAndFilePathAndUpdateTimeById(articleListVo.getId());
+                articleDetailVo.setTags(tags);
+                articleDetailVo.setClassification(classificationMapper.selectNameById(classificationId));
+                ArticleJsonUtil.writeArticle(globalConfig.getArticlePath(), articleDetailVo);
             } catch (Exception e) {
                 log.info("文章[{}]写入失败!", articleListVo.getTitle() + articleListVo.getUpdateTime() + ".json");
                 e.printStackTrace();

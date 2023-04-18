@@ -5,7 +5,6 @@ import top.whiteleaf03.blog.modal.dto.ArticleIdDto;
 import top.whiteleaf03.blog.modal.dto.InsertArticleDto;
 import top.whiteleaf03.blog.modal.vo.ArticleDetailVo;
 import top.whiteleaf03.blog.modal.vo.ArticleListVo;
-import top.whiteleaf03.blog.modal.vo.ClassificationVo;
 
 import java.util.List;
 
@@ -34,7 +33,7 @@ public interface ArticleMapper {
      *
      * @return 返回结果
      */
-    List<ArticleListVo> selectIdAndAuthorAndTitleAndDescribeAndClassificationAndTagsAndBorderColorAndCoverAndViewAndCommentAndPathAndUpdateTime();
+    List<ArticleListVo> selectIdAndAuthorAndTitleAndDescribeAndBorderColorAndCoverAndViewAndCommentAndPathAndUpdateTime();
 
     /**
      * 前台根据id获取文章内容
@@ -51,11 +50,4 @@ public interface ArticleMapper {
      * @return 返回结果
      */
     ArticleDetailVo selectAuthorAndTitleAndDescribeAndClassificationAndTagsAndCoverAndContentAndFilePathAndUpdateTimeById(Long id);
-
-    /**
-     * 查询当前文章已有类别及其数量
-     *
-     * @return 返回类别及其数量
-     */
-    List<ClassificationVo> selectClassificationAndTotal();
 }

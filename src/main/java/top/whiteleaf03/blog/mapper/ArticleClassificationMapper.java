@@ -33,4 +33,20 @@ public interface ArticleClassificationMapper {
      * @return 返回包含的文章数量
      */
     Integer countArticleTotalByClassificationId(Long classificationId);
+
+    /**
+     * 根据分类id查询所包含的博客id
+     *
+     * @param classificationId 分类id
+     * @return 返回该分类所包含的文章的id
+     */
+    List<Long> selectArticleIdByClassificationId(Long classificationId);
+
+    /**
+     * 根据博客id获取分类id
+     *
+     * @param articleId 博客
+     * @return 返回该博客所属分类的id
+     */
+    Long selectClassificationIdByArticleId(Long articleId);
 }

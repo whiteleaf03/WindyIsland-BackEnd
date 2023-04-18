@@ -4,6 +4,7 @@ import cn.hutool.core.io.file.FileWriter;
 import cn.hutool.json.JSONUtil;
 import top.whiteleaf03.blog.modal.vo.ArticleDetailVo;
 import top.whiteleaf03.blog.modal.vo.ArticleListVo;
+import top.whiteleaf03.blog.modal.vo.ClassificationIdAndNameAndArticleTotalVo;
 import top.whiteleaf03.blog.modal.vo.ClassificationVo;
 
 import java.util.List;
@@ -27,11 +28,11 @@ public class ArticleJsonUtil {
      * 写入类别
      *
      * @param articlePath 文章存储路径
-     * @param classificationVos 类别及其数量
+     * @param classificationIdAndNameAndArticleTotalVos 类别及其数量
      */
-    public static void writeClassifications(String articlePath, List<ClassificationVo> classificationVos) {
+    public static void writeClassifications(String articlePath, List<ClassificationIdAndNameAndArticleTotalVo> classificationIdAndNameAndArticleTotalVos) {
         FileWriter classificationsWriter = new FileWriter(articlePath + "classifications.json");
-        classificationsWriter.write(JSONUtil.toJsonPrettyStr(classificationVos));
+        classificationsWriter.write(JSONUtil.toJsonPrettyStr(classificationIdAndNameAndArticleTotalVos));
     }
 
     /**

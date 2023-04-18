@@ -3,10 +3,12 @@ package top.whiteleaf03.blog.service.article;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import top.whiteleaf03.blog.mapper.ArticleClassificationMapper;
 import top.whiteleaf03.blog.mapper.ArticleMapper;
 import top.whiteleaf03.blog.mapper.ArticleTagMapper;
 import top.whiteleaf03.blog.modal.dto.ArticleIdDto;
 import top.whiteleaf03.blog.modal.dto.InsertArticleDto;
+import top.whiteleaf03.blog.modal.entity.ArticleClassification;
 import top.whiteleaf03.blog.modal.entity.ArticleTag;
 import top.whiteleaf03.blog.modal.vo.ArticleDetailVo;
 import top.whiteleaf03.blog.modal.vo.ArticleListVo;
@@ -24,12 +26,14 @@ public class ArticleServiceImpl implements ArticleService {
     private final SystemServiceImpl systemServiceImpl;
     private final ArticleMapper articleMapper;
     private final ArticleTagMapper articleTagMapper;
+    private final ArticleClassificationMapper articleClassificationMapper;
 
     @Autowired
-    public ArticleServiceImpl(SystemServiceImpl systemServiceImpl, ArticleMapper articleMapper, ArticleTagMapper articleTagMapper) {
+    public ArticleServiceImpl(SystemServiceImpl systemServiceImpl, ArticleMapper articleMapper, ArticleTagMapper articleTagMapper, ArticleClassificationMapper articleClassificationMapper) {
         this.systemServiceImpl = systemServiceImpl;
         this.articleMapper = articleMapper;
         this.articleTagMapper = articleTagMapper;
+        this.articleClassificationMapper = articleClassificationMapper;
     }
 
     /**
@@ -40,12 +44,11 @@ public class ArticleServiceImpl implements ArticleService {
      */
     @Override
     public ResponseResult insert(InsertArticleDto insertArticleDto) {
-        Long articleId;
-        List<Long> tagIds;
         try {
-            tagIds = insertArticleDto.getTagIds();
+            List<Long> tagIds = insertArticleDto.getTagIds();
             insertArticleDto.generateArticleInfo();
-            articleId = articleMapper.insertArticle(insertArticleDto);
+            Long articleId = articleMapper.insertArticle(insertArticleDto);
+            articleClassificationMapper.insert(new ArticleClassification(articleId, insertArticleDto.getClassificationId()));
             for (Long tagId : tagIds) {
                 articleTagMapper.insert(new ArticleTag(articleId, tagId));
             }
@@ -85,7 +88,7 @@ public class ArticleServiceImpl implements ArticleService {
     public ResponseResult selectIdAndAuthorAndTitleAndDescribeAndBorderColorAndCoverAndViewAndCommentAndUpdateTime() {
         List<ArticleListVo> articleListVos;
         try {
-            articleListVos = articleMapper.selectIdAndAuthorAndTitleAndDescribeAndClassificationAndTagsAndBorderColorAndCoverAndViewAndCommentAndPathAndUpdateTime();
+            articleListVos = articleMapper.selectIdAndAuthorAndTitleAndDescribeAndBorderColorAndCoverAndViewAndCommentAndPathAndUpdateTime();
         } catch (RuntimeException e) {
             log.info("查询文章列表出错");
             e.printStackTrace();

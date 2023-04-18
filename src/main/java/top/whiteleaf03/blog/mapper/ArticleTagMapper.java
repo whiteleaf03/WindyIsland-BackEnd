@@ -3,6 +3,8 @@ package top.whiteleaf03.blog.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import top.whiteleaf03.blog.modal.entity.ArticleTag;
 
+import java.util.List;
+
 /**
  * @author WhiteLeaf03
  */
@@ -29,4 +31,12 @@ public interface ArticleTagMapper {
      * @return 返回文章数量
      */
     Integer countArticleTotalByTagId(Long tagId);
+
+    /**
+     * 根据文章id获取该文章所包含的标签id
+     *
+     * @param articleId 文章id
+     * @return 标签id列表
+     */
+    List<Long> selectTagIdByArticleId(Long articleId);
 }

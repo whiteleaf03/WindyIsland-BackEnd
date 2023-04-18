@@ -18,4 +18,10 @@
         from blog.tag
         where isDelete = 0;
     </select>
+
+    <select id="selectNameById" resultType="java.lang.String">
+        select name
+        from blog.tag
+        where id = #{id};
+    </select>
 </mapper>

@@ -17,4 +17,10 @@
         from blog.articletag
         where tagId = #{id}
     </select>
+
+    <select id="selectTagIdByArticleId" resultType="java.lang.Long">
+        select tagId
+        from blog.articletag
+        where articleId = #{articleId};
+    </select>
 </mapper>

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="top.whiteleaf03.blog.mapper.ArticleMapper">
-    <insert id="insertArticle" parameterType="top.whiteleaf03.blog.modal.entity.Article" keyProperty="id" useGeneratedKeys="true">
+    <insert id="insertArticle" parameterType="top.whiteleaf03.blog.modal.dto.InsertArticleDto" keyProperty="id" useGeneratedKeys="true">
         insert into blog.article (`author`, `title`, `describe`, `borderColor`, `cover`, `content`, `createTime`, `updateTime`)
             value (#{author}, #{title}, #{describe}, #{borderColor}, #{cover}, #{content}, #{createTime}, #{updateTime});
     </insert>
@@ -13,9 +13,9 @@
         where id = #{id};
     </delete>
 
-    <select id="selectIdAndAuthorAndTitleAndDescribeAndClassificationAndTagsAndBorderColorAndCoverAndViewAndCommentAndPathAndUpdateTime"
+    <select id="selectIdAndAuthorAndTitleAndDescribeAndBorderColorAndCoverAndViewAndCommentAndPathAndUpdateTime"
             resultType="top.whiteleaf03.blog.modal.vo.ArticleListVo">
-        select `id`, `author`, `title`, `describe`, `classification`, `tags`, `borderColor`, `cover`, `view`, `comment`, `updateTime`
+        select `id`, `author`, `title`, `describe`, `borderColor`, `cover`, `view`, `comment`, `updateTime`
         from blog.article
         where isDelete = 0
         order by id desc;
@@ -23,17 +23,10 @@
 
     <select id="selectAuthorAndTitleAndDescribeAndClassificationAndTagsAndCoverAndContentAndFilePathAndUpdateTimeById"
             resultType="top.whiteleaf03.blog.modal.vo.ArticleDetailVo">
-        select `author`, `title`, `describe`, `classification`, `tags`, `cover`, `content`, `updateTime`
+        select `author`, `title`, `describe`, `cover`, `content`, `updateTime`
         from blog.article
         where id = #{id}
           and isDelete = 0
         limit 1;
-    </select>
-
-    <select id="selectClassificationAndTotal" resultType="top.whiteleaf03.blog.modal.vo.ClassificationVo">
-        select classification, COUNT(classification) as total
-        from blog.article
-        where isDelete = 0
-        group by classification;
     </select>
 </mapper>
