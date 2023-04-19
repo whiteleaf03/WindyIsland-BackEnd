@@ -7,6 +7,7 @@ import top.whiteleaf03.blog.mapper.*;
 import top.whiteleaf03.blog.modal.dto.ArticleIdDto;
 import top.whiteleaf03.blog.modal.dto.ArticlePageDto;
 import top.whiteleaf03.blog.modal.dto.InsertArticleDto;
+import top.whiteleaf03.blog.modal.dto.UpdateArticleDto;
 import top.whiteleaf03.blog.modal.entity.ArticleClassification;
 import top.whiteleaf03.blog.modal.entity.ArticleTag;
 import top.whiteleaf03.blog.modal.vo.ArticleDetailVo;
@@ -18,6 +19,7 @@ import top.whiteleaf03.blog.utils.ResponseResult;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author WhiteLeaf03
@@ -179,5 +181,33 @@ public class ArticleServiceImpl implements ArticleService {
             return ResponseResult.error();
         }
         return ResponseResult.success(articleDetailVo);
+    }
+
+    /**
+     * 修改文章信息
+     *
+     * @param updateArticleDto 修改的信息
+     * @return 返回结果
+     */
+    @Override
+    public ResponseResult updateTitleOrClassificationIdOrTagIdsOrCoverOrDescribeOrBorderColor(UpdateArticleDto updateArticleDto) {
+        try {
+            if (!Objects.isNull(updateArticleDto.getClassificationId())) {
+                articleClassificationMapper.update(new ArticleClassification(updateArticleDto.getId(), updateArticleDto.getClassificationId()));
+            }
+            if (!Objects.isNull(updateArticleDto.getTagIds()) && !updateArticleDto.getTagIds().isEmpty()) {
+                articleTagMapper.deleteByArticleId(updateArticleDto.getId());
+                for (Long tagId : updateArticleDto.getTagIds()) {
+                    articleTagMapper.insert(new ArticleTag(updateArticleDto.getId(), tagId));
+                }
+            }
+            articleMapper.updateTitleOrCoverOrDescribeOrBorderColor(updateArticleDto);
+            systemServiceImpl.generateArticleStaticFileAndDirectory();
+        } catch (RuntimeException e) {
+            log.info("修改信息失败");
+            e.printStackTrace();
+            return ResponseResult.error();
+        }
+        return ResponseResult.success();
     }
 }

@@ -23,4 +23,10 @@
         from blog.articletag
         where articleId = #{articleId};
     </select>
+
+    <delete id="deleteByArticleId">
+        delete
+        from blog.articletag
+        where articleId = #{articleId};
+    </delete>
 </mapper>

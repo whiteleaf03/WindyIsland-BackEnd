@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import top.whiteleaf03.blog.modal.dto.ArticleIdDto;
 import top.whiteleaf03.blog.modal.dto.ArticlePageDto;
 import top.whiteleaf03.blog.modal.dto.InsertArticleDto;
+import top.whiteleaf03.blog.modal.dto.UpdateArticleDto;
 import top.whiteleaf03.blog.service.article.ArticleService;
 import top.whiteleaf03.blog.utils.ResponseResult;
 
@@ -85,5 +86,16 @@ public class ArticleController {
     @GetMapping("")
     ResponseResult selectAuthorAndTitleAndDescribeAndCoverAndContentAndFilePathAndUpdateTimeById(ArticleIdDto articleIdDto) {
         return articleService.selectAuthorAndTitleAndDescribeAndCoverAndContentAndFilePathAndUpdateTimeById(articleIdDto);
+    }
+
+    /**
+     * 修改文章信息
+     *
+     * @param updateArticleDto 修改的信息
+     * @return 返回结果
+     */
+    @PutMapping("")
+    public ResponseResult updateTitleOrClassificationIdOrTagIdsOrCoverOrDescribeOrBorderColor(@RequestBody UpdateArticleDto updateArticleDto) {
+        return articleService.updateTitleOrClassificationIdOrTagIdsOrCoverOrDescribeOrBorderColor(updateArticleDto);
     }
 }

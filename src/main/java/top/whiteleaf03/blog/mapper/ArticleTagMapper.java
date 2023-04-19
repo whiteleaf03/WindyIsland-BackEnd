@@ -39,4 +39,11 @@ public interface ArticleTagMapper {
      * @return 标签id列表
      */
     List<Long> selectTagIdByArticleId(Long articleId);
+
+    /**
+     * 删除一个博客的所有标签
+     *
+     * @param articleId 博客的id
+     */
+    void deleteByArticleId(Long articleId);
 }

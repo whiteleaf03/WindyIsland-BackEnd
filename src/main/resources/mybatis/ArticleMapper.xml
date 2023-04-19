@@ -41,4 +41,15 @@
           and isDelete = 0
         limit 1;
     </select>
+
+    <update id="updateTitleOrCoverOrDescribeOrBorderColor">
+        update blog.article
+        <trim prefix="set" suffixOverrides="," suffix=" where id = #{id}">
+            <if test="id != null">id = #{id},</if>
+            <if test="title != null">title = #{title},</if>
+            <if test="cover != null">cover = #{cover},</if>
+            <if test="describe != null">`describe` = #{describe},</if>
+            <if test="borderColor != null">borderColor = #{borderColor},</if>
+        </trim>
+    </update>
 </mapper>
