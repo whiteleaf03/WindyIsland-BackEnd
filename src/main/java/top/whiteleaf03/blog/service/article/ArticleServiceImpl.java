@@ -3,9 +3,7 @@ package top.whiteleaf03.blog.service.article;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import top.whiteleaf03.blog.mapper.ArticleClassificationMapper;
-import top.whiteleaf03.blog.mapper.ArticleMapper;
-import top.whiteleaf03.blog.mapper.ArticleTagMapper;
+import top.whiteleaf03.blog.mapper.*;
 import top.whiteleaf03.blog.modal.dto.ArticleIdDto;
 import top.whiteleaf03.blog.modal.dto.InsertArticleDto;
 import top.whiteleaf03.blog.modal.entity.ArticleClassification;
@@ -15,6 +13,7 @@ import top.whiteleaf03.blog.modal.vo.ArticleListVo;
 import top.whiteleaf03.blog.service.system.SystemServiceImpl;
 import top.whiteleaf03.blog.utils.ResponseResult;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,14 +25,18 @@ public class ArticleServiceImpl implements ArticleService {
     private final SystemServiceImpl systemServiceImpl;
     private final ArticleMapper articleMapper;
     private final ArticleTagMapper articleTagMapper;
+    private final TagMapper tagMapper;
     private final ArticleClassificationMapper articleClassificationMapper;
+    private final ClassificationMapper classificationMapper;
 
     @Autowired
-    public ArticleServiceImpl(SystemServiceImpl systemServiceImpl, ArticleMapper articleMapper, ArticleTagMapper articleTagMapper, ArticleClassificationMapper articleClassificationMapper) {
+    public ArticleServiceImpl(SystemServiceImpl systemServiceImpl, ArticleMapper articleMapper, ArticleTagMapper articleTagMapper, TagMapper tagMapper, ArticleClassificationMapper articleClassificationMapper, ClassificationMapper classificationMapper) {
         this.systemServiceImpl = systemServiceImpl;
         this.articleMapper = articleMapper;
         this.articleTagMapper = articleTagMapper;
+        this.tagMapper = tagMapper;
         this.articleClassificationMapper = articleClassificationMapper;
+        this.classificationMapper = classificationMapper;
     }
 
     /**
@@ -89,6 +92,17 @@ public class ArticleServiceImpl implements ArticleService {
         List<ArticleListVo> articleListVos;
         try {
             articleListVos = articleMapper.selectIdAndAuthorAndTitleAndDescribeAndBorderColorAndCoverAndViewAndCommentAndPathAndUpdateTime();
+            for (ArticleListVo articleListVo : articleListVos) {
+                Long articleId = articleListVo.getId();
+                List<Long> tagIds = articleTagMapper.selectTagIdByArticleId(articleId);
+                List<String> tags = new ArrayList<>();
+                for (Long tagId : tagIds) {
+                    tags.add(tagMapper.selectNameById(tagId));
+                }
+                articleListVo.setTags(tags);
+                Long classificationId = articleClassificationMapper.selectClassificationIdByArticleId(articleId);
+                articleListVo.setClassification(classificationMapper.selectNameById(classificationId));
+            }
         } catch (RuntimeException e) {
             log.info("查询文章列表出错");
             e.printStackTrace();
