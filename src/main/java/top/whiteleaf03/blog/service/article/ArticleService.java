@@ -1,6 +1,7 @@
 package top.whiteleaf03.blog.service.article;
 
 import top.whiteleaf03.blog.modal.dto.ArticleIdDto;
+import top.whiteleaf03.blog.modal.dto.ArticlePageDto;
 import top.whiteleaf03.blog.modal.dto.InsertArticleDto;
 import top.whiteleaf03.blog.utils.ResponseResult;
 
@@ -30,6 +31,21 @@ public interface ArticleService {
      * @return 返回结果
      */
     ResponseResult selectIdAndAuthorAndTitleAndDescribeAndBorderColorAndCoverAndViewAndCommentAndUpdateTime();
+
+    /**
+     * 分页查询文章列表
+     *
+     * @param articlePageDto 分页页号
+     * @return 返回结果
+     */
+    ResponseResult selectIdAndAuthorAndTitleAndDescribeAndBorderColorAndCoverAndViewAndCommentAndUpdateTimeInPaging(ArticlePageDto articlePageDto);
+
+    /**
+     * 统计分页查询时总数
+     *
+     * @return 返回总数
+     */
+    ResponseResult countPageSizeInPaging();
 
     /**
      * 前台根据id获取文章内容

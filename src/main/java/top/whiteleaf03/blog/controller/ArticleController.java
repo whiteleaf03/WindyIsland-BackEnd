@@ -3,6 +3,7 @@ package top.whiteleaf03.blog.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import top.whiteleaf03.blog.modal.dto.ArticleIdDto;
+import top.whiteleaf03.blog.modal.dto.ArticlePageDto;
 import top.whiteleaf03.blog.modal.dto.InsertArticleDto;
 import top.whiteleaf03.blog.service.article.ArticleService;
 import top.whiteleaf03.blog.utils.ResponseResult;
@@ -52,6 +53,27 @@ public class ArticleController {
     @GetMapping("list")
     ResponseResult selectIdAndAuthorAndTitleAndDescribeAndBorderColorAndCoverAndViewAndCommentAndUpdateTime() {
         return articleService.selectIdAndAuthorAndTitleAndDescribeAndBorderColorAndCoverAndViewAndCommentAndUpdateTime();
+    }
+
+    /**
+     * 分页查询文章列表
+     *
+     * @param articlePageDto 分页页号
+     * @return 返回结果
+     */
+    @GetMapping("list/page")
+    ResponseResult selectIdAndAuthorAndTitleAndDescribeAndBorderColorAndCoverAndViewAndCommentAndUpdateTimeInPaging(ArticlePageDto articlePageDto) {
+        return articleService.selectIdAndAuthorAndTitleAndDescribeAndBorderColorAndCoverAndViewAndCommentAndUpdateTimeInPaging(articlePageDto);
+    }
+
+    /**
+     * 统计分页查询时总数
+     *
+     * @return 返回总数
+     */
+    @GetMapping("list/page/size")
+    ResponseResult selectIdAndAuthorAndTitleAndDescribeAndBorderColorAndCoverAndViewAndCommentAndUpdateTimeInPaging() {
+        return articleService.countPageSizeInPaging();
     }
 
     /**

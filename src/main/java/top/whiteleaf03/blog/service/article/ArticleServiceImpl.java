@@ -5,11 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.whiteleaf03.blog.mapper.*;
 import top.whiteleaf03.blog.modal.dto.ArticleIdDto;
+import top.whiteleaf03.blog.modal.dto.ArticlePageDto;
 import top.whiteleaf03.blog.modal.dto.InsertArticleDto;
 import top.whiteleaf03.blog.modal.entity.ArticleClassification;
 import top.whiteleaf03.blog.modal.entity.ArticleTag;
 import top.whiteleaf03.blog.modal.vo.ArticleDetailVo;
 import top.whiteleaf03.blog.modal.vo.ArticleListVo;
+import top.whiteleaf03.blog.modal.vo.ArticlePageListVo;
+import top.whiteleaf03.blog.modal.vo.ArticlePageSizeVo;
 import top.whiteleaf03.blog.service.system.SystemServiceImpl;
 import top.whiteleaf03.blog.utils.ResponseResult;
 
@@ -109,6 +112,54 @@ public class ArticleServiceImpl implements ArticleService {
             return ResponseResult.error();
         }
         return ResponseResult.success(articleListVos);
+    }
+
+    /**
+     * 分页查询文章列表
+     *
+     * @param articlePageDto 分页页号
+     * @return 返回结果
+     */
+    @Override
+    public ResponseResult selectIdAndAuthorAndTitleAndDescribeAndBorderColorAndCoverAndViewAndCommentAndUpdateTimeInPaging(ArticlePageDto articlePageDto) {
+        List<ArticlePageListVo> articlePageListVos;
+        try {
+            articlePageListVos = articleMapper.selectIdAndAuthorAndTitleAndDescribeAndBorderColorAndCoverAndViewAndCommentAndPathAndUpdateTimeInPaging(articlePageDto);
+            for (ArticlePageListVo articlePageListVo : articlePageListVos) {
+                Long articleId = articlePageListVo.getId();
+                List<Long> tagIds = articleTagMapper.selectTagIdByArticleId(articleId);
+                List<String> tags = new ArrayList<>();
+                for (Long tagId : tagIds) {
+                    tags.add(tagMapper.selectNameById(tagId));
+                }
+                articlePageListVo.setTags(tags);
+                Long classificationId = articleClassificationMapper.selectClassificationIdByArticleId(articleId);
+                articlePageListVo.setClassification(classificationMapper.selectNameById(classificationId));
+            }
+        } catch (RuntimeException e) {
+            log.info("查询文章列表出错");
+            e.printStackTrace();
+            return ResponseResult.error();
+        }
+        return ResponseResult.success(articlePageListVos);
+    }
+
+    /**
+     * 统计分页查询时总数
+     *
+     * @return 返回总数
+     */
+    @Override
+    public ResponseResult countPageSizeInPaging() {
+        ArticlePageSizeVo articlePageSizeVo;
+        try {
+            articlePageSizeVo = articleMapper.countPageSizeInPaging();
+        } catch (RuntimeException e) {
+            log.error("统计数量失败");
+            e.printStackTrace();
+            return ResponseResult.error();
+        }
+        return ResponseResult.success(articlePageSizeVo);
     }
 
     /**

@@ -21,6 +21,18 @@
         order by id desc;
     </select>
 
+    <select id="selectIdAndAuthorAndTitleAndDescribeAndBorderColorAndCoverAndViewAndCommentAndPathAndUpdateTimeInPaging"
+            resultType="top.whiteleaf03.blog.modal.vo.ArticlePageListVo">
+        select id, author, title, `describe`, borderColor, cover, view, comment, createTime, updateTime, isDelete
+        from blog.article
+        limit ${(page - 1) * 10}, 10;
+    </select>
+
+    <select id="countPageSizeInPaging" resultType="top.whiteleaf03.blog.modal.vo.ArticlePageSizeVo">
+        select COUNT(id) as total
+        from blog.article;
+    </select>
+
     <select id="selectAuthorAndTitleAndDescribeAndClassificationAndTagsAndCoverAndContentAndFilePathAndUpdateTimeById"
             resultType="top.whiteleaf03.blog.modal.vo.ArticleDetailVo">
         select `author`, `title`, `describe`, `cover`, `content`, `updateTime`
