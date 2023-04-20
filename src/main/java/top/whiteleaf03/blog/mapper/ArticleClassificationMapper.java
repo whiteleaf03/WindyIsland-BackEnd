@@ -20,11 +20,11 @@ public interface ArticleClassificationMapper {
     void insert(ArticleClassification articleClassification);
 
     /**
-     * 修改分类
+     * 删除文章的分类
      *
-     * @param articleClassification 要修改的文章id及分类id
+     * @param articleId 文章id
      */
-    void update(ArticleClassification articleClassification);
+    void delete(Long articleId);
 
     /**
      * 根据分类id获取该分类所包含的文章数量

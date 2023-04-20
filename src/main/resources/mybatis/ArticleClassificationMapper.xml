@@ -7,11 +7,9 @@
             value (#{articleId}, #{classificationId});
     </insert>
 
-    <update id="update">
-        update blog.articleclassification
-        set classificationId = #{classificationId}
-        where articleId = #{articleId};
-    </update>
+    <delete id="delete">
+        delete from blog.articleclassification where articleId = #{articleId};
+    </delete>
 
     <select id="countArticleTotalByClassificationId" resultType="java.lang.Integer">
         select count(*)

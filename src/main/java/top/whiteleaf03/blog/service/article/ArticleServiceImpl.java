@@ -193,13 +193,15 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public ResponseResult updateTitleOrClassificationIdOrTagIdsOrCoverOrDescribeOrBorderColor(UpdateArticleDto updateArticleDto) {
         try {
+            Long articleId = updateArticleDto.getId();
             if (!Objects.isNull(updateArticleDto.getClassificationId())) {
-                articleClassificationMapper.update(new ArticleClassification(updateArticleDto.getId(), updateArticleDto.getClassificationId()));
+                articleClassificationMapper.delete(articleId);
+                articleClassificationMapper.insert(new ArticleClassification(articleId, updateArticleDto.getClassificationId()));
             }
             if (!Objects.isNull(updateArticleDto.getTagIds()) && !updateArticleDto.getTagIds().isEmpty()) {
-                articleTagMapper.deleteByArticleId(updateArticleDto.getId());
+                articleTagMapper.deleteByArticleId(articleId);
                 for (Long tagId : updateArticleDto.getTagIds()) {
-                    articleTagMapper.insert(new ArticleTag(updateArticleDto.getId(), tagId));
+                    articleTagMapper.insert(new ArticleTag(articleId, tagId));
                 }
             }
             articleMapper.updateTitleOrCoverOrDescribeOrBorderColor(updateArticleDto);
