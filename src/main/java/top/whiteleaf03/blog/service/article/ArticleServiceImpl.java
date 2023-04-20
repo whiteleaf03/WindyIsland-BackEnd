@@ -55,7 +55,8 @@ public class ArticleServiceImpl implements ArticleService {
         try {
             List<Long> tagIds = insertArticleDto.getTagIds();
             insertArticleDto.generateArticleInfo();
-            Long articleId = articleMapper.insertArticle(insertArticleDto);
+            articleMapper.insertArticle(insertArticleDto);
+            Long articleId = insertArticleDto.getId();
             articleClassificationMapper.insert(new ArticleClassification(articleId, insertArticleDto.getClassificationId()));
             for (Long tagId : tagIds) {
                 articleTagMapper.insert(new ArticleTag(articleId, tagId));
