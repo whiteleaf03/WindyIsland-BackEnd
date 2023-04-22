@@ -1,4 +1,4 @@
-package top.whiteleaf03.blog.modal.dto;
+package top.whiteleaf03.blog.modal.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,14 +10,14 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuditMessageDto {
+public class MessageAuditInfoVo {
     /**
-     * 评论主键
+     * 评论用户邮箱
      */
-    private Long id;
+    private String email;
 
     /**
-     * 状态 0 未审核 1 已过审 -1 被封禁
+     * 评论内容
      */
-    private Integer status;
+    private String content;
 }

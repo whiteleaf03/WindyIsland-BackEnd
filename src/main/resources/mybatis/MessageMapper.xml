@@ -25,4 +25,21 @@
         where status = 1 and isDelete = 0
         order by id desc;
     </select>
+
+    <select id="selectEmailAndContentById" resultType="top.whiteleaf03.blog.modal.vo.MessageAuditInfoVo">
+        select email, content
+        from blog.message
+        where id = #{id};
+    </select>
+
+    <select id="countPageSizeInPaging" resultType="top.whiteleaf03.blog.modal.vo.MessagePageSizeVo">
+        select count(id) as total
+        from blog.message;
+    </select>
+
+    <select id="selectIdAndNicknameAndEmailAndContentAndUpdateTimeAndStatusInPaging" resultType="top.whiteleaf03.blog.modal.vo.MessageInfoVo">
+        select id, nickname, email, content, updateTime, `status`
+        from blog.message
+        limit ${(page - 1) * 10}, 10;
+    </select>
 </mapper>

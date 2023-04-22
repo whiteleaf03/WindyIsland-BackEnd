@@ -3,6 +3,7 @@ package top.whiteleaf03.blog.service.message;
 import top.whiteleaf03.blog.modal.dto.AuditMessageDto;
 import top.whiteleaf03.blog.modal.dto.InsertMessageDto;
 import top.whiteleaf03.blog.modal.dto.MessageIdDto;
+import top.whiteleaf03.blog.modal.dto.MessagePageDto;
 import top.whiteleaf03.blog.utils.ResponseResult;
 
 /**
@@ -39,4 +40,19 @@ public interface MessageService {
      * @return 返回评论列表
      */
     ResponseResult selectNicknameAndUpdateTimeAndContent();
+
+    /**
+     * 统计分页查询时总页数
+     *
+     * @return 返回页数
+     */
+    ResponseResult countPageSizeInPaging();
+
+    /**
+     * 后台分页获取评论列表
+     *
+     * @param messagePageDto 分页页号
+     * @return 分页返回评论列表
+     */
+    ResponseResult selectIdAndNicknameAndEmailAndContentAndUpdateTimeAndStatusInPaging(MessagePageDto messagePageDto);
 }

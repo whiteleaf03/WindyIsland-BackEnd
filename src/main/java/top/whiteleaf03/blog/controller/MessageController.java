@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import top.whiteleaf03.blog.modal.dto.AuditMessageDto;
 import top.whiteleaf03.blog.modal.dto.InsertMessageDto;
 import top.whiteleaf03.blog.modal.dto.MessageIdDto;
+import top.whiteleaf03.blog.modal.dto.MessagePageDto;
 import top.whiteleaf03.blog.service.message.MessageService;
 import top.whiteleaf03.blog.utils.ResponseResult;
 
@@ -62,5 +63,26 @@ public class MessageController {
     @GetMapping("")
     ResponseResult selectNicknameAndUpdateTimeAndContent() {
         return messageService.selectNicknameAndUpdateTimeAndContent();
+    }
+
+    /**
+     * 统计分页查询时总数
+     *
+     * @return 返回总数
+     */
+    @GetMapping("list/page/size")
+    ResponseResult countPageSizeInPaging() {
+        return messageService.countPageSizeInPaging();
+    }
+
+    /**
+     * 后台分页获取评论列表
+     *
+     * @param messagePageDto 分页页号
+     * @return 分页返回评论列表
+     */
+    @GetMapping("list/page")
+    ResponseResult selectIdAndNicknameAndEmailAndContentAndUpdateTimeAndStatusInPaging(MessagePageDto messagePageDto) {
+        return messageService.selectIdAndNicknameAndEmailAndContentAndUpdateTimeAndStatusInPaging(messagePageDto);
     }
 }

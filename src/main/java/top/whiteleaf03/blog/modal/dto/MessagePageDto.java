@@ -10,14 +10,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuditMessageDto {
+public class MessagePageDto {
     /**
-     * 评论主键
+     * 分页查询页号
      */
-    private Long id;
-
-    /**
-     * 状态 0 未审核 1 已过审 -1 被封禁
-     */
-    private Integer status;
+    private Integer page;
 }
