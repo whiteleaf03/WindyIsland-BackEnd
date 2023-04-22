@@ -73,7 +73,7 @@ public class ArticleController {
      * @return 返回总数
      */
     @GetMapping("list/page/size")
-    ResponseResult selectIdAndAuthorAndTitleAndDescribeAndBorderColorAndCoverAndViewAndCommentAndUpdateTimeInPaging() {
+    ResponseResult countPageSizeInPaging() {
         return articleService.countPageSizeInPaging();
     }
 
