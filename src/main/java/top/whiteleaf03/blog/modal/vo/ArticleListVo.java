@@ -59,7 +59,7 @@ public class ArticleListVo {
     private Long view;
 
     /**
-     * 评论量
+     * 留言量
      */
     private Long comment;
 

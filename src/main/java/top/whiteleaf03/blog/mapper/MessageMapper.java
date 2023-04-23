@@ -17,38 +17,38 @@ import java.util.List;
 @Mapper
 public interface MessageMapper {
     /**
-     * 新增评论
+     * 新增留言
      *
-     * @param insertMessageDto 新增的评论
+     * @param insertMessageDto 新增的留言
      */
     void insert(InsertMessageDto insertMessageDto);
 
     /**
-     * 删除评论
+     * 删除留言
      *
-     * @param messageIdDto 包含评论id
+     * @param messageIdDto 包含留言id
      */
     void deleteById(MessageIdDto messageIdDto);
 
     /**
-     * 审核评论
+     * 审核留言
      *
-     * @param auditMessageDto 包含评论审核结果
+     * @param auditMessageDto 包含留言审核结果
      */
     void updateSetStatusById(AuditMessageDto auditMessageDto);
 
     /**
-     * 查询评论列表
+     * 查询留言列表
      *
      * @return 返回结果
      */
     List<MessageVo> selectNicknameAndUpdateTimeAndContent();
 
     /**
-     * 根据id获取邮箱和评论内容
+     * 根据id获取邮箱和留言内容
      *
-     * @param id 评论id
-     * @return 返回邮箱和评论内容
+     * @param id 留言id
+     * @return 返回邮箱和留言内容
      */
     MessageAuditInfoVo selectEmailAndContentById(Long id);
 

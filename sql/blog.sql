@@ -13,7 +13,7 @@ create table article
     cover       varchar(512)         not null comment '文章封面图片路径',
     content     longtext             not null comment '文章内容 富文本形式',
     view        bigint     default 0 not null comment '浏览量',
-    comment     bigint     default 0 not null comment '评论量',
+    comment     bigint     default 0 not null comment '留言量',
     createTime  bigint               not null comment '创建日期',
     updateTime  bigint               not null comment '更新日期',
     isDelete    tinyint(1) default 0 not null comment '是否删除',
@@ -76,8 +76,8 @@ create table message
         primary key,
     nickname   varchar(64)          not null comment '昵称',
     email      varchar(128)         not null comment '邮箱',
-    content    varchar(256)         not null comment '评论',
-    updateTime bigint               not null comment '评论日期',
+    content    varchar(256)         not null comment '留言',
+    updateTime bigint               not null comment '留言日期',
     status     tinyint(1) default 0 not null comment '状态 0 未审核 1 已过审 -1 被封禁',
     isDelete   tinyint(1) default 0 not null comment '是否删除'
 )

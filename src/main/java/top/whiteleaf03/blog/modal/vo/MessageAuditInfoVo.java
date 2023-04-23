@@ -12,12 +12,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MessageAuditInfoVo {
     /**
-     * 评论用户邮箱
+     * 留言用户邮箱
      */
     private String email;
 
     /**
-     * 评论内容
+     * 留言内容
      */
     private String content;
 }

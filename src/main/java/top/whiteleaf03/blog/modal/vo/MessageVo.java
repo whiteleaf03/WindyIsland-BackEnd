@@ -17,12 +17,12 @@ public class MessageVo {
     private String nickname;
 
     /**
-     * 评论
+     * 留言
      */
     private String content;
 
     /**
-     * 评论日期
+     * 留言日期
      */
     private Long updateTime;
 }

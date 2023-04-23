@@ -23,9 +23,9 @@ public class MessageController {
     }
 
     /**
-     * 新增评论
+     * 新增留言
      *
-     * @param insertMessageDto 新增的评论
+     * @param insertMessageDto 新增的留言
      * @return 返回结果
      */
     @PostMapping("")
@@ -34,9 +34,9 @@ public class MessageController {
     }
 
     /**
-     * 删除评论
+     * 删除留言
      *
-     * @param messageIdDto 包含评论id
+     * @param messageIdDto 包含留言id
      * @return 返回结果
      */
     @DeleteMapping("")
@@ -45,9 +45,9 @@ public class MessageController {
     }
 
     /**
-     * 审核评论
+     * 审核留言
      *
-     * @param auditMessageDto 包含评论审核结果
+     * @param auditMessageDto 包含留言审核结果
      * @return 返回结果
      */
     @PutMapping("")
@@ -56,9 +56,9 @@ public class MessageController {
     }
 
     /**
-     * 查询评论列表
+     * 查询留言列表
      *
-     * @return 返回评论列表
+     * @return 返回留言列表
      */
     @GetMapping("")
     ResponseResult selectNicknameAndUpdateTimeAndContent() {
@@ -76,10 +76,10 @@ public class MessageController {
     }
 
     /**
-     * 后台分页获取评论列表
+     * 后台分页获取留言列表
      *
      * @param messagePageDto 分页页号
-     * @return 分页返回评论列表
+     * @return 分页返回留言列表
      */
     @GetMapping("list/page")
     ResponseResult selectIdAndNicknameAndEmailAndContentAndUpdateTimeAndStatusInPaging(MessagePageDto messagePageDto) {

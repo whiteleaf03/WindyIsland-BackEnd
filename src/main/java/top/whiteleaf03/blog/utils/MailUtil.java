@@ -24,7 +24,7 @@ public class MailUtil {
      */
     public void sentMessageToAdmin(String nickname, String message) {
         javaMailSender.send(new SimpleMailMessage() {{
-            setSubject("[风之屿博客]来自用户[" + nickname + "]的新评论");
+            setSubject("[风之屿博客]来自用户[" + nickname + "]的新留言");
             setText(message);
             setFrom("whiteleaf03@163.com");
             setTo("2876202234@qq.com");
@@ -32,15 +32,15 @@ public class MailUtil {
     }
 
     /**
-     * 发送评论过审邮件
+     * 发送留言过审邮件
      *
      * @param target 目标用户邮箱
      * @param message 留言内容
      */
     public void sentMessageToUser(String target, String message) {
         javaMailSender.send(new SimpleMailMessage() {{
-            setSubject("[风之屿博客]评论过审通知");
-            setText("您的评论[" + message + "]管理员已通过审核");
+            setSubject("[风之屿博客]留言过审通知");
+            setText("您的留言[" + message + "]管理员已通过审核");
             setFrom("whiteleaf03@163.com");
             setTo(target);
         }});

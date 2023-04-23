@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AuditMessageDto {
     /**
-     * 评论主键
+     * 留言主键
      */
     private Long id;
 
