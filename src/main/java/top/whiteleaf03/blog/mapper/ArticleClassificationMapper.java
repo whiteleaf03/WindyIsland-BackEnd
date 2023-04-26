@@ -2,8 +2,6 @@ package top.whiteleaf03.blog.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import top.whiteleaf03.blog.modal.entity.ArticleClassification;
-import top.whiteleaf03.blog.modal.vo.ClassificationIdAndNameAndArticleTotalVo;
-import top.whiteleaf03.blog.modal.vo.ClassificationListVo;
 
 import java.util.List;
 

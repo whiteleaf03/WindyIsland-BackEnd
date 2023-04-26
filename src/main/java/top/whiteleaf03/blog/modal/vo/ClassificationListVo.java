@@ -20,4 +20,9 @@ public class ClassificationListVo {
      * 分类名
      */
     private String name;
+
+    /**
+     * 分类封面图
+     */
+    private String cover;
 }

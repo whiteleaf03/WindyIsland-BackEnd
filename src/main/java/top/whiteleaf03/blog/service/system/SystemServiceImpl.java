@@ -67,12 +67,12 @@ public class SystemServiceImpl implements ApplicationRunner {
         //类别写入
         log.info("类别写入...");
         try {
-            List<ClassificationIdAndNameAndArticleTotalVo> classificationIdAndNameAndArticleTotalVos = new ArrayList<>();
-            List<ClassificationListVo> classificationListVos = classificationMapper.selectIdAndName();
+            List<ClassificationIdAndNameAndCoverAndTotalVo> classificationIdAndNameAndCoverAndTotalVos = new ArrayList<>();
+            List<ClassificationListVo> classificationListVos = classificationMapper.selectIdAndNameAndCover();
             for (ClassificationListVo classificationListVo : classificationListVos) {
-                classificationIdAndNameAndArticleTotalVos.add(new ClassificationIdAndNameAndArticleTotalVo(classificationListVo.getId(), classificationListVo.getName(), articleClassificationMapper.countArticleTotalByClassificationId(classificationListVo.getId())));
+                classificationIdAndNameAndCoverAndTotalVos.add(new ClassificationIdAndNameAndCoverAndTotalVo(classificationListVo.getId(), classificationListVo.getName(), classificationListVo.getCover(), articleClassificationMapper.countArticleTotalByClassificationId(classificationListVo.getId())));
             }
-            ArticleJsonUtil.writeClassifications(globalConfig.getArticlePath(), classificationIdAndNameAndArticleTotalVos);
+            ArticleJsonUtil.writeClassifications(globalConfig.getArticlePath(), classificationIdAndNameAndCoverAndTotalVos);
         } catch (Exception e) {
             log.error("类别写入失败!");
             e.printStackTrace();

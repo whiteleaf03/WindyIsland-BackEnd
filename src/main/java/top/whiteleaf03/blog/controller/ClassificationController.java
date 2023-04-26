@@ -70,7 +70,7 @@ public class ClassificationController {
      * @return 返回分类名及该分类包含的文章数量
      */
     @GetMapping("info")
-    public ResponseResult selectTagNameAndArticleTotal() {
-        return classificationService.selectTagNameAndArticleTotal();
+    public ResponseResult selectIdAndNameAndCoverAndTotal() {
+        return classificationService.selectIdAndNameAndCoverAndTotal();
     }
 }

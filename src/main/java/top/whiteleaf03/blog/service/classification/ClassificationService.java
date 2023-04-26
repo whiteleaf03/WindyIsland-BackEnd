@@ -45,5 +45,5 @@ public interface ClassificationService {
      *
      * @return 返回分类名及该分类包含的文章数量
      */
-    ResponseResult selectTagNameAndArticleTotal();
+    ResponseResult selectIdAndNameAndCoverAndTotal();
 }

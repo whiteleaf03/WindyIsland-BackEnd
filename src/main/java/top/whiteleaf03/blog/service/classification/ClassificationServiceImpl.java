@@ -8,7 +8,7 @@ import top.whiteleaf03.blog.mapper.ClassificationMapper;
 import top.whiteleaf03.blog.modal.dto.ClassificationIdDto;
 import top.whiteleaf03.blog.modal.dto.InsertClassificationDto;
 import top.whiteleaf03.blog.modal.entity.ArticleClassification;
-import top.whiteleaf03.blog.modal.vo.ClassificationIdAndNameAndArticleTotalVo;
+import top.whiteleaf03.blog.modal.vo.ClassificationIdAndNameAndCoverAndTotalVo;
 import top.whiteleaf03.blog.modal.vo.ClassificationListVo;
 import top.whiteleaf03.blog.utils.ResponseResult;
 
@@ -76,7 +76,7 @@ public class ClassificationServiceImpl implements ClassificationService {
     public ResponseResult selectIdAndName() {
         List<ClassificationListVo> classificationListVos;
         try {
-            classificationListVos = classificationMapper.selectIdAndName();
+            classificationListVos = classificationMapper.selectIdAndNameAndCover();
         } catch (RuntimeException e) {
             log.error("获取所有分类失败");
             e.printStackTrace();
@@ -109,18 +109,18 @@ public class ClassificationServiceImpl implements ClassificationService {
      * @return 返回分类名及该分类包含的文章数量
      */
     @Override
-    public ResponseResult selectTagNameAndArticleTotal() {
-        List<ClassificationIdAndNameAndArticleTotalVo> classificationIdAndNameAndArticleTotalVos = new ArrayList<>();
+    public ResponseResult selectIdAndNameAndCoverAndTotal() {
+        List<ClassificationIdAndNameAndCoverAndTotalVo> classificationIdAndNameAndCoverAndTotalVos = new ArrayList<>();
         try {
-            List<ClassificationListVo> classificationListVos = classificationMapper.selectIdAndName();
+            List<ClassificationListVo> classificationListVos = classificationMapper.selectIdAndNameAndCover();
             for (ClassificationListVo classificationListVo: classificationListVos) {
-                classificationIdAndNameAndArticleTotalVos.add(new ClassificationIdAndNameAndArticleTotalVo(classificationListVo.getId(), classificationListVo.getName(), articleClassificationMapper.countArticleTotalByClassificationId(classificationListVo.getId())));
+                classificationIdAndNameAndCoverAndTotalVos.add(new ClassificationIdAndNameAndCoverAndTotalVo(classificationListVo.getId(), classificationListVo.getName(), classificationListVo.getCover(), articleClassificationMapper.countArticleTotalByClassificationId(classificationListVo.getId())));
             }
         } catch (RuntimeException e) {
             log.error("获取分类名及该分类包含的文章数量失败");
             e.printStackTrace();
             return ResponseResult.error();
         }
-        return ResponseResult.success(classificationIdAndNameAndArticleTotalVos);
+        return ResponseResult.success(classificationIdAndNameAndCoverAndTotalVos);
     }
 }

@@ -31,7 +31,7 @@ public interface ClassificationMapper {
      *
      * @return 返回
      */
-    List<ClassificationListVo> selectIdAndName();
+    List<ClassificationListVo> selectIdAndNameAndCover();
 
     /**
      * 根据id获取分类名

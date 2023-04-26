@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClassificationIdAndNameAndArticleTotalVo {
+public class ClassificationIdAndNameAndCoverAndTotalVo {
     /**
      * 分类id
      */
@@ -20,6 +20,11 @@ public class ClassificationIdAndNameAndArticleTotalVo {
      * 分类名
      */
     private String name;
+
+    /**
+     * 分类封面
+     */
+    private String cover;
 
     /**
      * 文章数量

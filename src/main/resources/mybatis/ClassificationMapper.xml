@@ -13,8 +13,8 @@
         where id = #{id};
     </update>
 
-    <select id="selectIdAndName" resultType="top.whiteleaf03.blog.modal.vo.ClassificationListVo">
-        select id, name
+    <select id="selectIdAndNameAndCover" resultType="top.whiteleaf03.blog.modal.vo.ClassificationListVo">
+        select id, name, cover
         from blog.classification
         where isDelete = 0;
     </select>

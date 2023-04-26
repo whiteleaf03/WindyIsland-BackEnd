@@ -10,9 +10,14 @@ public class Classification {
     private Long id;
 
     /**
-     * 标签名
+     * 分类名
      */
     private String name;
+
+    /**
+     * 分类封面
+     */
+    private String cover;
 
     /**
      * 上传时间
