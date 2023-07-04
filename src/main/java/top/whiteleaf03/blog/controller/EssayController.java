@@ -12,7 +12,7 @@ import top.whiteleaf03.blog.utils.ResponseResult;
  * @author WhiteLeaf03
  */
 @RestController
-@RequestMapping("/api/essay")
+@RequestMapping("/blog/api/essay")
 public class EssayController {
     private final EssayService essayService;
 

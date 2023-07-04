@@ -12,7 +12,7 @@ import top.whiteleaf03.blog.utils.ResponseResult;
  * @author WhiteLeaf03
  */
 @RestController
-@RequestMapping("/api/classification")
+@RequestMapping("/blog/api/classification")
 public class ClassificationController {
     private final ClassificationService classificationService;
 

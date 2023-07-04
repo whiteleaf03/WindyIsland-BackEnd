@@ -11,7 +11,7 @@ import top.whiteleaf03.blog.utils.ResponseResult;
  * @author WhiteLeaf03
  */
 @RestController
-@RequestMapping("/api/tag")
+@RequestMapping("/blog/api/tag")
 public class TagController {
     private final TagService tagService;
 

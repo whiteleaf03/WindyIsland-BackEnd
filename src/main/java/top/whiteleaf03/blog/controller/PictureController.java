@@ -11,7 +11,7 @@ import top.whiteleaf03.blog.utils.ResponseResult;
  * @author WhiteLeaf03
  */
 @RestController
-@RequestMapping("/api/picture")
+@RequestMapping("/blog/api/picture")
 public class PictureController {
     private final PictureService pictureService;
 

@@ -13,7 +13,7 @@ import top.whiteleaf03.blog.utils.ResponseResult;
  * @author WhiteLeaf03
  */
 @RestController
-@RequestMapping("/api/article")
+@RequestMapping("/blog/api/article")
 public class ArticleController {
 
     private final ArticleService articleService;
