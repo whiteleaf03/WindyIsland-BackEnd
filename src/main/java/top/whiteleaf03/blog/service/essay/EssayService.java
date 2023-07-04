@@ -2,6 +2,7 @@ package top.whiteleaf03.blog.service.essay;
 
 import top.whiteleaf03.blog.modal.dto.EssayIdDto;
 import top.whiteleaf03.blog.modal.dto.InsertEssayDto;
+import top.whiteleaf03.blog.modal.dto.UpdateEssayDto;
 import top.whiteleaf03.blog.utils.ResponseResult;
 
 /**
@@ -38,4 +39,12 @@ public interface EssayService {
      * @return 返回结果
      */
     ResponseResult selectTitleAndDescribeAndCoverAndContentAndUpdateTimeById(EssayIdDto essayIdDto);
+
+    /**
+     * 更新随笔信息
+     *
+     * @param updateEssayDto 包含id，可能包含标题，描述，封面路径
+     * @return 返回结果
+     */
+    ResponseResult updateTitleOrDescribeOrCoverAndUpdateTimeById(UpdateEssayDto updateEssayDto);
 }

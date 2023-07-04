@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import top.whiteleaf03.blog.modal.dto.EssayIdDto;
 import top.whiteleaf03.blog.modal.dto.InsertEssayDto;
+import top.whiteleaf03.blog.modal.dto.UpdateEssayDto;
 import top.whiteleaf03.blog.service.essay.EssayService;
 import top.whiteleaf03.blog.utils.ResponseResult;
 
@@ -61,5 +62,16 @@ public class EssayController {
     @GetMapping("")
     ResponseResult selectTitleAndDescribeAndCoverAndContentAndUpdateTime(EssayIdDto essayIdDto) {
         return essayService.selectTitleAndDescribeAndCoverAndContentAndUpdateTimeById(essayIdDto);
+    }
+
+    /**
+     * 更新随笔信息
+     *
+     * @param updateEssayDto 包含id，可能包含标题，描述，封面路径
+     * @return 返回结果
+     */
+    @PutMapping("")
+    ResponseResult updateTitleOrDescribeOrCoverAndUpdateTimeById(@RequestBody UpdateEssayDto updateEssayDto) {
+        return essayService.updateTitleOrDescribeOrCoverAndUpdateTimeById(updateEssayDto);
     }
 }

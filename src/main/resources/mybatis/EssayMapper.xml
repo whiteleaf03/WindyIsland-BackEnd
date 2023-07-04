@@ -28,4 +28,14 @@
           and id = #{id}
         limit 1;
     </select>
+
+    <update id="updateTitleOrDescribeOrCoverAndUpdateTimeById">
+        update blog.essay
+        <trim prefix="set" suffixOverrides="," suffix=" where id = #{id}">
+            <if test="title != null">title = #{title},</if>
+            <if test="describe != null">`describe` = #{describe},</if>
+            <if test="cover != null">`cover` = #{cover},</if>
+            <if test="updateTime != null">`updateTime` = #{updateTime},</if>
+        </trim>
+    </update>
 </mapper>

@@ -3,6 +3,7 @@ package top.whiteleaf03.blog.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import top.whiteleaf03.blog.modal.dto.EssayIdDto;
 import top.whiteleaf03.blog.modal.dto.InsertEssayDto;
+import top.whiteleaf03.blog.modal.dto.UpdateEssayDto;
 import top.whiteleaf03.blog.modal.vo.EssayDetailVo;
 import top.whiteleaf03.blog.modal.vo.EssayListVo;
 
@@ -49,4 +50,11 @@ public interface EssayMapper {
      * @return 返回结果
      */
     EssayDetailVo selectTitleAndDescribeAndCoverAndContentAndUpdateTimeById(Long id);
+
+    /**
+     * 更新随笔信息
+     *
+     * @param updateEssayDto 包含id和更新时间，可能包含标题，描述，封面路径
+     */
+    void updateTitleOrDescribeOrCoverAndUpdateTimeById(UpdateEssayDto updateEssayDto);
 }

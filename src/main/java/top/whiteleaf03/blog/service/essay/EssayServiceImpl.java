@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import top.whiteleaf03.blog.mapper.EssayMapper;
 import top.whiteleaf03.blog.modal.dto.EssayIdDto;
 import top.whiteleaf03.blog.modal.dto.InsertEssayDto;
+import top.whiteleaf03.blog.modal.dto.UpdateEssayDto;
 import top.whiteleaf03.blog.modal.vo.EssayListVo;
 import top.whiteleaf03.blog.service.system.SystemServiceImpl;
 import top.whiteleaf03.blog.utils.ResponseResult;
@@ -97,6 +98,26 @@ public class EssayServiceImpl implements EssayService {
             log.error("获取随笔[{}]内容失败", essayIdDto.getId());
             e.printStackTrace();
             return ResponseResult.error();
+        }
+        return ResponseResult.success();
+    }
+
+    /**
+     * 更新随笔信息
+     *
+     * @param updateEssayDto 包含id，可能包含标题，描述，封面路径
+     * @return 返回结果
+     */
+    @Override
+    public ResponseResult updateTitleOrDescribeOrCoverAndUpdateTimeById(UpdateEssayDto updateEssayDto) {
+        updateEssayDto.setUpdateTime(System.currentTimeMillis());
+        System.out.println(updateEssayDto);
+        try {
+            essayMapper.updateTitleOrDescribeOrCoverAndUpdateTimeById(updateEssayDto);
+        } catch (RuntimeException e) {
+            log.error("更新随笔失败");
+            e.printStackTrace();
+            return ResponseResult.error("更新随笔失败");
         }
         return ResponseResult.success();
     }
