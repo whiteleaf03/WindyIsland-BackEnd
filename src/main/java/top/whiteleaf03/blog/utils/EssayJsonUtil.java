@@ -1,6 +1,7 @@
 package top.whiteleaf03.blog.utils;
 
 import cn.hutool.core.io.file.FileWriter;
+import cn.hutool.crypto.digest.DigestUtil;
 import cn.hutool.json.JSONUtil;
 import top.whiteleaf03.blog.modal.vo.EssayDetailVo;
 import top.whiteleaf03.blog.modal.vo.EssayListVo;
@@ -29,7 +30,7 @@ public class EssayJsonUtil {
      * @param essayDetailVo 随笔详情
      */
     public static void writeEssay(String essayPath, EssayDetailVo essayDetailVo) {
-        FileWriter fileWriter = new FileWriter(essayPath + essayDetailVo.getTitle() + "_" + essayDetailVo.getUpdateTime() + ".json");
+        FileWriter fileWriter = new FileWriter(essayPath + DigestUtil.md5Hex(essayDetailVo.getTitle()) + "_" + essayDetailVo.getUpdateTime() + ".json");
         fileWriter.write(JSONUtil.toJsonPrettyStr(essayDetailVo));
     }
 }

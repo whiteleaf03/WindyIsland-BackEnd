@@ -1,5 +1,6 @@
 package top.whiteleaf03.blog.service.system;
 
+import cn.hutool.crypto.digest.DigestUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -57,6 +58,7 @@ public class SystemServiceImpl implements ApplicationRunner {
                 Long classificationId = articleClassificationMapper.selectClassificationIdByArticleId(articleListVo.getId());
                 String classification = classificationMapper.selectNameById(classificationId);
                 articleListVo.setClassification(classification);
+                articleListVo.setFilename(DigestUtil.md5Hex(articleListVo.getTitle()));
             }
             ArticleJsonUtil.writeDirectory(globalConfig.getArticlePath(), articleListVos);
         } catch (Exception e) {
@@ -107,6 +109,9 @@ public class SystemServiceImpl implements ApplicationRunner {
         List<EssayListVo> essayListVos;
         try {
             essayListVos = essayMapper.selectTitleAndDescribeAndCoverAndUpdateTime();
+            for (EssayListVo essayListVo : essayListVos) {
+                essayListVo.setFilename(DigestUtil.md5Hex(essayListVo.getTitle()));
+            }
             EssayJsonUtil.writeDirectory(globalConfig.getEssayPath(), essayListVos);
         } catch (Exception e) {
             log.error("随笔目录写入失败!");

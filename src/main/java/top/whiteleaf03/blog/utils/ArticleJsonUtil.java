@@ -1,6 +1,7 @@
 package top.whiteleaf03.blog.utils;
 
 import cn.hutool.core.io.file.FileWriter;
+import cn.hutool.crypto.digest.DigestUtil;
 import cn.hutool.json.JSONUtil;
 import top.whiteleaf03.blog.modal.vo.ArticleDetailVo;
 import top.whiteleaf03.blog.modal.vo.ArticleListVo;
@@ -41,7 +42,7 @@ public class ArticleJsonUtil {
      * @param articleDetailVo 文章详情
      */
     public static void writeArticle(String articlePath, ArticleDetailVo articleDetailVo) {
-        FileWriter fileWriter = new FileWriter(articlePath + articleDetailVo.getTitle() + "_" + articleDetailVo.getUpdateTime() + ".json");
+        FileWriter fileWriter = new FileWriter(articlePath + DigestUtil.md5Hex(articleDetailVo.getTitle()) + "_" + articleDetailVo.getUpdateTime() + ".json");
         fileWriter.write(JSONUtil.toJsonPrettyStr(articleDetailVo));
     }
 }

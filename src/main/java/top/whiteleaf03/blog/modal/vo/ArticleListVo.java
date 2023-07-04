@@ -67,4 +67,9 @@ public class ArticleListVo {
      * 更新日期
      */
     private Long updateTime;
+
+    /**
+     * 文件名
+     */
+    private String filename;
 }
