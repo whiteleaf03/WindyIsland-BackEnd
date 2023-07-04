@@ -7,6 +7,7 @@ import top.whiteleaf03.blog.mapper.EssayMapper;
 import top.whiteleaf03.blog.modal.dto.EssayIdDto;
 import top.whiteleaf03.blog.modal.dto.InsertEssayDto;
 import top.whiteleaf03.blog.modal.vo.EssayListVo;
+import top.whiteleaf03.blog.service.system.SystemServiceImpl;
 import top.whiteleaf03.blog.utils.ResponseResult;
 
 import java.util.List;
@@ -18,10 +19,12 @@ import java.util.List;
 @Service
 public class EssayServiceImpl implements EssayService {
     private final EssayMapper essayMapper;
+    private final SystemServiceImpl systemService;
 
     @Autowired
-    public EssayServiceImpl(EssayMapper essayMapper) {
+    public EssayServiceImpl(EssayMapper essayMapper, SystemServiceImpl systemService) {
         this.essayMapper = essayMapper;
+        this.systemService = systemService;
     }
 
     /**
@@ -35,6 +38,7 @@ public class EssayServiceImpl implements EssayService {
         try {
             insertEssayDto.generateEssayInfo();
             essayMapper.insert(insertEssayDto);
+            systemService.generateEssayStaticFileAndDirectory();
         } catch (RuntimeException e) {
             log.error("新增随笔失败");
             e.printStackTrace();
